@@ -1,0 +1,31 @@
+<div class="container-fluid pt-4">
+    <div class="container-fluid" *ngFor="let tempVeterinary of myVeterinaries">
+        <h4><u>Dr. {{tempVeterinary.lastName.toUpperCase() }} {{ tempVeterinary.firstName}}</u></h4>
+        <p>
+            <span class="ml-4">Adresse: {{ tempVeterinary.streetNumber }} {{ tempVeterinary.streetName }}
+            {{ tempVeterinary.zipCode }} {{ tempVeterinary.city }}</span>
+            <span class="ml-5"></span>
+            <span class="ml-5">Téléphone: {{tempVeterinary.phoneNumber |slice:0:2 }}-{{tempVeterinary.phoneNumber |slice:2:4 }}-{{ tempVeterinary.phoneNumber |slice:4:6 }}-{{ tempVeterinary.phoneNumber |slice:6:8 }}-{{ tempVeterinary.phoneNumber |slice:8:10 }}</span>
+        </p>
+
+
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Examen</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Heure</th>
+                    <th scope="col">Nom Animal</th>
+                </tr>
+            </thead>
+            <tbody  *ngFor="let tempVetCare of tempVeterinary.veterinaryCares | orderByDate:'examenDate'">
+                <tr *ngIf="(tempVetCare.examenDate | date: 'yyyy/MM/dd') > (now| date: 'yyyy/MM/dd')">
+                    <td> {{ tempVetCare.examen }}</td>
+                    <td> {{ tempVetCare.examenDate | date: 'dd/MM/yyyy'}}</td>
+                    <td> {{ tempVetCare.examenTime }}</td>
+                    <td> {{ tempVetCare.animal.name }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>

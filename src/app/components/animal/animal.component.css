@@ -1,0 +1,13 @@
+.menu-perso {
+    font-family: Apple Chancery, cursive;
+    font-style: italic;
+  }
+
+  .animalsContainer{
+    border-style: dotted;
+    border-radius: 10px;
+    background: #5EB1E5;
+    color: black;
+    font-family: Apple Chancery, cursive;
+    font-style: bold;
+  }

@@ -1,0 +1,105 @@
+<div class="container-fluid pt-4">
+    <div class="container-fluid">
+        <h4><u>Descriptif de l'animal:</u></h4>
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Espèce</th>
+                    <th scope="col">Race</th>
+                    <th scope="col">Sexe</th>
+                    <th scope="col">Date de naissance</th>
+                    <th scope="col">Arrivée au refuge</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> {{ myAnimal.name }}</td>
+                    <td> {{ myAnimal.species }}</td>
+                    <td> {{ myAnimal.race }}</td>
+                    <td> {{ myAnimal.sexe }}</td>
+                    <td> {{ myAnimal.birthDate | date: 'dd/MM/yyyy'}}</td>
+                    <td> {{ myAnimal.arrivalDate | date: 'dd/MM/yyyy'}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+
+    <div class="container-fluid" *ngIf="myAnimal.adoptiveFamily">
+        <h4><u>Famille d'adoption :</u></h4>
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Adresse</th>
+                    <th scope="col">Numéro de téléphone</th>
+                    <th scope="col">Date d'adoption</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> {{ myAnimal.adoptiveFamily.firstName }}</td>
+                    <td> {{ myAnimal.adoptiveFamily.lastName }}</td>
+                    <td> {{ myAnimal.adoptiveFamily.streetNumber }} {{ myAnimal.adoptiveFamily.streetName }}
+                        {{ myAnimal.adoptiveFamily.zipCode }} {{ myAnimal.adoptiveFamily.city }}</td>
+                    <td> {{ myAnimal.adoptiveFamily.phoneNumber |slice:0:2 }}-{{ myAnimal.adoptiveFamily.phoneNumber |slice:2:4 }}-{{ myAnimal.adoptiveFamily.phoneNumber |slice:4:6 }}-{{ myAnimal.adoptiveFamily.phoneNumber |slice:6:8 }}-{{ myAnimal.adoptiveFamily.phoneNumber |slice:8:10 }}
+                    </td>
+                    <td> {{ myAnimal.adoptiveFamily.adoptionDate | date: 'dd/MM/yyyy'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container-fluid" *ngIf="myAnimal.hostFamily">
+        <h4><u>Famille d'acceuil:</u></h4>
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Adresse</th>
+                    <th scope="col">Numéro de téléphone</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> {{ myAnimal.hostFamily.firstName }}</td>
+                    <td> {{ myAnimal.hostFamily.lastName }}</td>
+                    <td> {{ myAnimal.hostFamily.streetNumber }} {{ myAnimal.hostFamily.streetName }}
+                        {{ myAnimal.hostFamily.zipCode }} {{ myAnimal.hostFamily.city }}</td>
+                    <td> {{ myAnimal.hostFamily.phoneNumber |slice:0:2 }}-{{ myAnimal.hostFamily.phoneNumber |slice:2:4 }}-{{ myAnimal.hostFamily.phoneNumber |slice:4:6 }}-{{ myAnimal.hostFamily.phoneNumber |slice:6:8 }}-{{ myAnimal.hostFamily.phoneNumber |slice:8:10 }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+    <div class="container-fluid" *ngIf="veterinaryCares.length > 0">
+        <h4><u>Les soins vétérinaires:</u></h4>
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Type d'examen</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let tempCare of veterinaryCares">
+                <tr>
+                    <td>{{ tempCare.examen }}</td>
+                    <td>{{ tempCare.examenDate | date: 'dd/MM/yyyy'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container-fluid">
+        <br>
+        <button routerLink="/animals" class="btn btn-outline-secondary float-right">Retour</button>
+    </div>
+
+</div>

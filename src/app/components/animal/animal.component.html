@@ -1,0 +1,51 @@
+<div class="row justify-content-start">
+    <div class="col-2">
+        <div class="menu-sidebar-content pt-4 menu-perso">
+            <a class="nav-item nav-link py-2" routerLink="/animals/Chien">Les chiens</a>
+            <a class="nav-item nav-link py-2" routerLink="/animals/Chat">Les chats</a>
+            <a class="nav-item nav-link py-2" routerLink="/animals/NAC_Rongeur">Les rongeurs</a>
+            <a class="nav-item nav-link py-2" routerLink="/animals/NAC_Reptile">Les reptiles</a>
+            <a class="nav-item nav-link py-2" routerLink="/animals/Autre">Autre</a>
+        </div>
+    </div>
+    <div class="col-10">
+        <div class="container-fluid pt-4">
+            <div class="row justify-content-md-center">
+                <div class="col-md-2 mx-4 animalsContainer"  [ngStyle]="{'border-color': 'green'}" >
+                    <p class="text-center mt-2">Adopté</p>
+                </div>
+                <div class="col-md-2 mx-4 animalsContainer" [ngStyle]="{'border-color': 'orange'}">
+                    <p class="text-center mt-2">En famille d'acceuil</p>
+                </div>
+                <div class="col-md-2 mx-4 animalsContainer" [ngStyle]="{'border-color': 'red'}">
+                    <p class="text-center mt-2">Au refuge</p>
+                </div>
+            </div>
+
+
+            <div class="row pt-4" *ngIf="myAnimals.length !== 0; else noAnimal">
+
+                <!-- loop over the collection of animals-->
+                <div *ngFor="let tempAnimal of myAnimals" class="col-md-2">
+                    <div class="product-box pb-3">
+                        <a routerLink="/animals/details/{{ tempAnimal.id }}" routerLinkActive="active-link">
+                            <!-- Si ni adopté, ni en famille d'accueil: bordure rouge, sinon si adopté: bordure verte, sinon (en famille d'acceuil): bordure orange-->
+                            <div class="animalsContainer"
+                                [ngStyle]="{'border-color':(!tempAnimal.adoptiveFamily && !tempAnimal.hostFamily) ? 'red' : (tempAnimal.adoptiveFamily ? 'green' : 'orange') }">
+                                <p class="text-center mt-2">{{ tempAnimal.name }}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <ng-template #noAnimal>
+                <br>
+                <div class="alert alert-info" role="alert">
+                    Nous n'avons pas d'animal pour cette espèce.
+                </div>
+            </ng-template>
+
+        </div>
+    </div>
+
+</div>
