@@ -27,6 +27,16 @@ export class AnimalService {
     return this.httpClient.get<Animal>(url);
   }
 
+  getAnimalsInHostFamily(): Observable<Animal[]>{
+    const url = `${this.baseUrl}/host`;
+    return this.httpClient.get<Animal[]>(url);
+  }
+
+  getAdoptedAnimals(): Observable<Animal[]>{
+    const url = `${this.baseUrl}/adoptive`;
+    return this.httpClient.get<Animal[]>(url);
+  }
+
 
 }
 

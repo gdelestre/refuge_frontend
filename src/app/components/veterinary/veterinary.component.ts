@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Veterinary } from 'src/app/classes/veterinary';
-import { ActivatedRoute } from '@angular/router';
 import { VeterinaryCareService } from 'src/app/services/veterinary-care.service';
 
 @Component({
@@ -14,7 +13,7 @@ export class VeterinaryComponent implements OnInit {
   now = new Date();
 
 
-  constructor(private route:ActivatedRoute, private veterinaryCareService: VeterinaryCareService) { }
+  constructor(private veterinaryCareService: VeterinaryCareService) { }
 
   ngOnInit(): void {
     this.getAllVeterinaries();

@@ -8,6 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AnimalDetailsComponent } from './components/animal-details/animal-details.component';
 import { VeterinaryComponent } from './components/veterinary/veterinary.component';
 import { OrderByDatePipe } from './pipes/order-by-date.pipe';
+import { HostFamilyComponent } from './components/host-family/host-family.component';
+import { AdoptiveFamilyComponent } from './components/adoptive-family/adoptive-family.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { OrderByDatePipe } from './pipes/order-by-date.pipe';
     AnimalComponent,
     AnimalDetailsComponent,
     VeterinaryComponent,
-    OrderByDatePipe
+    OrderByDatePipe,
+    HostFamilyComponent,
+    AdoptiveFamilyComponent
   ],
   imports: [
     HttpClientModule,

@@ -1,0 +1,77 @@
+<div class="container-fluid pt-4">
+    <div class="container-fluid">
+
+        <h3 class="curv-perso pb-3"><u>Famille(s) pouvant accueillir d'autres animaux:</u></h3>
+
+        <ul *ngFor="let tempHost of myHostFamilies">
+            <li *ngIf="tempHost.free">
+                <h5>M./Mme {{tempHost.lastName.toUpperCase() }} {{ tempHost.firstName}}</h5>
+            </li>
+            <div *ngIf="tempHost.free">
+                <div class="row">
+                    <div class="col-4">
+                        Adresse: {{ tempHost.streetNumber }} {{ tempHost.streetName }}
+                        {{ tempHost.zipCode }} {{ tempHost.city }}
+                    </div>
+                    <div class="col-8">Téléphone:
+                        {{tempHost.phoneNumber |slice:0:2 }}-{{tempHost.phoneNumber |slice:2:4 }}-{{ tempHost.phoneNumber |slice:4:6 }}-{{ tempHost.phoneNumber |slice:6:8 }}-{{ tempHost.phoneNumber |slice:8:10 }}
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="tempHost.free">
+                <div class="row pt-2 pb-3">
+                    <div class="col col-md-2">
+                        <p><u>Animaux : </u> </p>
+                    </div>
+                    <ng-container *ngFor="let tempAnimal of myAnimalsInHostFamily" class="col-md-auto">
+                        <div>
+                            <span *ngIf="tempAnimal.hostFamily.phoneNumber === tempHost.phoneNumber"
+                                class="pr-4">{{ tempAnimal.name }} </span>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </ul>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="container-fluid">
+
+        <h3 class="curv-perso pb-3"><u>Famille(s) ne pouvant plus en accueillir:</u></h3>
+
+
+        <ul *ngFor="let tempHost of myHostFamilies">
+            <li *ngIf="!tempHost.free">
+                <h5>M./Mme {{tempHost.lastName.toUpperCase() }} {{ tempHost.firstName}}</h5>
+            </li>
+            <div *ngIf="!tempHost.free">
+                <div class="row">
+                    <div class="col-4">
+                        Adresse: {{ tempHost.streetNumber }} {{ tempHost.streetName }}
+                        {{ tempHost.zipCode }} {{ tempHost.city }}
+                    </div>
+                    <div class="col-8">Téléphone:
+                        {{tempHost.phoneNumber |slice:0:2 }}-{{tempHost.phoneNumber |slice:2:4 }}-{{ tempHost.phoneNumber |slice:4:6 }}-{{ tempHost.phoneNumber |slice:6:8 }}-{{ tempHost.phoneNumber |slice:8:10 }}
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="!tempHost.free">
+                <div class="row pt-2 pb-3">
+                    <div class="col col-md-2">
+                        <p><u>Animaux : </u> </p>
+                    </div>
+                    <ng-container *ngFor="let tempAnimal of myAnimalsInHostFamily" class="col-md-auto">
+                        <div *ngIf="tempAnimal.hostFamily.phoneNumber === tempHost.phoneNumber">
+                            <span class="pr-5">{{ tempAnimal.name }} </span>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </ul>
+    </div>
+
+</div>
