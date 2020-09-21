@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HostFamily } from '../classes/host-family';
 import { Observable } from 'rxjs';
-import { Animal } from '../classes/animal';
 
 @Injectable({
   providedIn: 'root'

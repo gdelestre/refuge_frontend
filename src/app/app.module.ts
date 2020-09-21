@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +11,8 @@ import { VeterinaryComponent } from './components/veterinary/veterinary.componen
 import { OrderByDatePipe } from './pipes/order-by-date.pipe';
 import { HostFamilyComponent } from './components/host-family/host-family.component';
 import { AdoptiveFamilyComponent } from './components/adoptive-family/adoptive-family.component';
+import { AddAnimalComponent } from './components/add-animal/add-animal.component';
+
 
 @NgModule({
   declarations: [
@@ -19,12 +22,14 @@ import { AdoptiveFamilyComponent } from './components/adoptive-family/adoptive-f
     VeterinaryComponent,
     OrderByDatePipe,
     HostFamilyComponent,
-    AdoptiveFamilyComponent
+    AdoptiveFamilyComponent,
+    AddAnimalComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

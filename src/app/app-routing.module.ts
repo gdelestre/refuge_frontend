@@ -5,9 +5,11 @@ import { AnimalDetailsComponent } from './components/animal-details/animal-detai
 import { VeterinaryComponent } from './components/veterinary/veterinary.component';
 import { HostFamilyComponent } from './components/host-family/host-family.component';
 import { AdoptiveFamilyComponent } from './components/adoptive-family/adoptive-family.component';
+import { AddAnimalComponent } from './components/add-animal/add-animal.component';
 
 
 const routes: Routes = [
+{path: 'animals/add', component: AddAnimalComponent },
 {path: 'animals/details/:id', component: AnimalDetailsComponent },
 {path: 'animals/:species', component: AnimalComponent },
 {path: 'adoptives', component: AdoptiveFamilyComponent },

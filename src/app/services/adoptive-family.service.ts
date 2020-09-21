@@ -11,7 +11,6 @@ export class AdoptiveFamilyService {
 
   constructor(private httpClient: HttpClient) { }
 
-
   getAllHostFamily(): Observable<AdoptiveFamily[]> {
     return this.httpClient.get<AdoptiveFamily[]>(this.baseUrl);
   }

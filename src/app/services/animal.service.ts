@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse  } from '@angular/common/http';
 import { Animal } from '../classes/animal';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable({
@@ -37,6 +38,18 @@ export class AnimalService {
     return this.httpClient.get<Animal[]>(url);
   }
 
+  createAnimal(animal: object): Observable<object> {
+    return this.httpClient.post(this.baseUrl, animal).pipe(catchError(this.handleError));;
+  }
+
+  handleError(error: HttpErrorResponse) {
+    let errorMessage = "";
+    if (error.status == 403) {
+      errorMessage = `Ajout impossible! Ce nom est déjà utilisé.`;
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
+  }
 
 }
 
