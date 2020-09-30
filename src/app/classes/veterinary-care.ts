@@ -8,5 +8,4 @@ export class VeterinaryCare {
     examenTime: string;
     animal: Animal;
     veterinary: Veterinary;
-
 }

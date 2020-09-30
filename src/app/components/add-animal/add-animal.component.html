@@ -1,37 +1,37 @@
-
 <div class="main-content page-m">
     <div class="section-content section-content-p30">
-        <div class="container-fluid" >
+        <div class="container">
 
             <!-- Fait référence au nom définie dans le fichier.ts-->
-            <form [formGroup]="animalFormGroup" (ngSubmit)="onSubmit()"  autocomplete="off">
+            <form [formGroup]="animalFormGroup" (ngSubmit)="onSubmit()" autocomplete="off">
 
-                <div formGroupName="animal" class="form-area">
-                    <h3>Nouvel animal</h3>
+                <div formGroupName="animal" class="form-area ">
 
-                    <div class="row">
+                    <h3 class="text-center curv-perso py-4"><u>Nouvel animal :</u></h3>
+
+                    <div class="row pb-3">
                         <div class="col-md-2"> <label>Nom</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="name" type="text"  minlength="3">
+                                <input formControlName="name" type="text" minlength="3">
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row pb-3">
                         <div class="col-md-2"> <label>Espèce</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                            <select formControlName="species">
-                                <option value="Chat" selected>Chat</option>
-                                <option value="Chien">Chien</option>
-                                <option value="NAC_Rongeur">Rongeur</option>
-                                <option value="NAC_Reptile">Reptile</option>
-                                <option value="Autre">Autre</option>
-                              </select>
-                              </div>
+                                <select formControlName="species">
+                                    <option value="Chat">Chat</option>
+                                    <option value="Chien">Chien</option>
+                                    <option value="NAC_Rongeur">Rongeur</option>
+                                    <option value="NAC_Reptile">Reptile</option>
+                                    <option value="Autre">Autre</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row pb-3">
                         <div class="col-md-2"> <label>Race</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
@@ -39,58 +39,60 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row pb-3">
                         <div class="col-md-2"> <label>Sexe</label></div>
                         <div class="col-md-9">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" formControlName="sexe" id="male" value="Male">
+                                <input class="form-check-input" type="radio" formControlName="sexe" id="male"
+                                    value="Male">
                                 <label class="form-check-label" for="male">Male</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" formControlName="sexe" id="femelle" value="Femelle">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" formControlName="sexe" id="femelle"
+                                    value="Femelle">
                                 <label class="form-check-label" for="femelle">Femelle</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" formControlName="sexe" id="ind" value="Indéterminé">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" formControlName="sexe" id="ind"
+                                    value="Indéterminé">
                                 <label class="form-check-label" for="ind">Indéterminé</label>
-                              </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row pb-3">
                         <div class="col-md-2"> <label>Date de naissance</label></div>
                         <div class="col-md-9">
                             <div class="row">
-                              <div class="col-xs-12 col-12 col-md-4 form-group">
-                                <input type="date"
-                                      placeholder="jour/mois/année"
-                                      class="form-control"
-                                      formControlName="birthDate">
-                              </div>
+                                <div class="col-xs-12 col-12 col-md-6 form-group">
+                                    <input type="date" placeholder="jour/mois/année" class="form-control"
+                                        formControlName="birthDate">
+                                </div>
                             </div>
-                          </div>
+                        </div>
                     </div>
-                    <div class="row">
+                    <div class="row pb-3">
                         <div class="col-md-2"> <label>Date d'arrivée</label></div>
                         <div class="col-md-9">
                             <div class="row">
-                                <div class="col-xs-12 col-12 col-md-4 form-group">
-                                    <input type="date"
-                                    placeholder="jour/mois/année"
-                                    class="form-control"
-                                    formControlName="arrivalDate">
+                                <div class="col-xs-12 col-12 col-md-6 form-group">
+                                    <input type="date" placeholder="jour/mois/année" class="form-control"
+                                        formControlName="arrivalDate">
+                                </div>
                             </div>
-                              </div>
                         </div>
+
                     </div>
 
                 </div>
                 <!-- submit button -->
-                <div class="text-center">
+
+                <div class="text-center py-4">
                     <button type="submit" class="btn btn-info" [disabled]="!animalFormGroup.valid">Ajouter</button>
                 </div>
 
-                <div *ngIf= "!animalFormGroup.valid">
-                    <h3>Instructions pour compléter ce formulaire: </h3>
+
+                <div *ngIf="!animalFormGroup.valid">
+                    <h3 class="curv-perso pt-3">Instructions pour compléter ce formulaire: </h3>
                     <ul>
                         <li>Tous les champs doivent être complétés</li>
                         <li>Le nom doit commencer par une majuscule</li>
@@ -100,9 +102,9 @@
                         <li>La date de naissance doit être inférieure à la date du jour</li>
                         <li>La date d'arrivée doit être inférieure à la date du jour</li>
                     </ul>
-
                 </div>
             </form>
         </div>
+
     </div>
 </div>

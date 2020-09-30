@@ -1,11 +1,16 @@
-<div class="container-fluid pt-4">
-    <div class="container-fluid" *ngFor="let tempVeterinary of myVeterinaries">
+<div class="container-fluid">
+    <div class="container-fluid pt-4">
+        <button routerLink="/veterinaries/add" class="btn btn-outline-secondary ">Ajouter un vétérinaire</button>
+    </div>
+
+    <div class="container-fluid pt-4" *ngFor="let tempVeterinary of myVeterinaries">
         <h4><u>Dr. {{tempVeterinary.lastName.toUpperCase() }} {{ tempVeterinary.firstName}}</u></h4>
         <p>
             <span class="ml-4">Adresse: {{ tempVeterinary.streetNumber }} {{ tempVeterinary.streetName }}
-            {{ tempVeterinary.zipCode }} {{ tempVeterinary.city }}</span>
+                {{ tempVeterinary.zipCode }} {{ tempVeterinary.city }}</span>
             <span class="ml-5"></span>
-            <span class="ml-5">Téléphone: {{tempVeterinary.phoneNumber |slice:0:2 }}-{{tempVeterinary.phoneNumber |slice:2:4 }}-{{ tempVeterinary.phoneNumber |slice:4:6 }}-{{ tempVeterinary.phoneNumber |slice:6:8 }}-{{ tempVeterinary.phoneNumber |slice:8:10 }}</span>
+            <span class="ml-5">Téléphone:
+                {{tempVeterinary.phoneNumber |slice:0:2 }}-{{tempVeterinary.phoneNumber |slice:2:4 }}-{{ tempVeterinary.phoneNumber |slice:4:6 }}-{{ tempVeterinary.phoneNumber |slice:6:8 }}-{{ tempVeterinary.phoneNumber |slice:8:10 }}</span>
         </p>
 
 
@@ -18,7 +23,7 @@
                     <th scope="col">Nom Animal</th>
                 </tr>
             </thead>
-            <tbody  *ngFor="let tempVetCare of tempVeterinary.veterinaryCares | orderByDate:'examenDate'">
+            <tbody *ngFor="let tempVetCare of tempVeterinary.veterinaryCares | orderByDate:'examenDate'">
                 <tr *ngIf="(tempVetCare.examenDate | date: 'yyyy/MM/dd') > (now| date: 'yyyy/MM/dd')">
                     <td> {{ tempVetCare.examen }}</td>
                     <td> {{ tempVetCare.examenDate | date: 'dd/MM/yyyy'}}</td>

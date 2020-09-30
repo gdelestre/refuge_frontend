@@ -3,3 +3,13 @@
     font-family: Apple Chancery, cursive;
     font-style: italic;
   }
+
+input.ng-touched.ng-invalid {
+    border-width: 1px;
+    border-left: red solid 5px;
+}
+
+input.ng-touched.ng-valid  {
+    border-left: 5px green solid;
+}
+

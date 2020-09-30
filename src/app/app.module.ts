@@ -12,6 +12,8 @@ import { OrderByDatePipe } from './pipes/order-by-date.pipe';
 import { HostFamilyComponent } from './components/host-family/host-family.component';
 import { AdoptiveFamilyComponent } from './components/adoptive-family/adoptive-family.component';
 import { AddAnimalComponent } from './components/add-animal/add-animal.component';
+import { AddVeterinaryComponent } from './components/add-veterinary/add-veterinary.component';
+import { AddCareComponent } from './components/add-care/add-care.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { AddAnimalComponent } from './components/add-animal/add-animal.component
     OrderByDatePipe,
     HostFamilyComponent,
     AdoptiveFamilyComponent,
-    AddAnimalComponent
+    AddAnimalComponent,
+    AddVeterinaryComponent,
+    AddCareComponent
   ],
   imports: [
     HttpClientModule,

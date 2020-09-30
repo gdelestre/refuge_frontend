@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms'
 import { Animal } from 'src/app/classes/animal';
 import { AnimalService } from 'src/app/services/animal.service';
 
-
 export const validDate: ValidatorFn = (control) => {
 
   if (control && (control.dirty || control.touched)) {
@@ -74,7 +73,6 @@ export class AddAnimalComponent implements OnInit {
   onSubmit() {
     this.saveAnimal();
     this.animalFormGroup.reset();
-
   }
 
   saveAnimal() {
@@ -95,11 +93,5 @@ export class AddAnimalComponent implements OnInit {
       .subscribe(data => console.log(data), error => console.log(error));
     this.newAnimal = new Animal();
   }
-
-  // Getter method to access form control
-  get name() {
-    return this.animalFormGroup.get('animal').value.name;
-  }
-
 
 }

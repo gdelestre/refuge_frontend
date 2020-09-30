@@ -1,6 +1,6 @@
 <div class="container-fluid pt-4">
     <div class="container-fluid">
-        <h4><u>Descriptif de l'animal:</u></h4>
+        <h4 class="curv-perso"><u>Descriptif de l'animal :</u></h4>
         <table class="table">
             <thead class="thead-light">
                 <tr>
@@ -28,8 +28,8 @@
 
     <br>
 
-    <div class="container-fluid" *ngIf="myAnimal.adoptiveFamily">
-        <h4><u>Famille d'adoption :</u></h4>
+    <div class="container-fluid pt-3" *ngIf="myAnimal.adoptiveFamily">
+        <h4 class="curv-perso"><u>Famille d'adoption :</u></h4>
         <table class="table">
             <thead class="thead-light">
                 <tr>
@@ -54,8 +54,8 @@
         </table>
     </div>
 
-    <div class="container-fluid" *ngIf="myAnimal.hostFamily">
-        <h4><u>Famille d'acceuil:</u></h4>
+    <div class="container-fluid pt-3" *ngIf="myAnimal.hostFamily">
+        <h4 class="curv-perso"><u>Famille d'acceuil :</u></h4>
         <table class="table">
             <thead class="thead-light">
                 <tr>
@@ -80,7 +80,7 @@
 
     <br>
     <div class="container-fluid" *ngIf="veterinaryCares.length > 0">
-        <h4><u>Les soins vétérinaires:</u></h4>
+        <h4 class="curv-perso"><u>Les soins vétérinaires :</u></h4>
         <table class="table">
             <thead class="thead-light">
                 <tr>
@@ -95,11 +95,18 @@
                 </tr>
             </tbody>
         </table>
+
+
     </div>
 
     <div class="container-fluid">
+        <button routerLink="/care/{{ myAnimal.id }}" class="btn btn-outline-secondary float-left">Ajouter un
+            soin</button>
+    </div>
+
+    <div class="container-fluid pt-3">
         <br>
-        <button routerLink="/animals" class="btn btn-outline-secondary float-right">Retour</button>
+        <button routerLink="/animals" class="btn btn-outline-primary float-right">Retour</button>
     </div>
 
 </div>

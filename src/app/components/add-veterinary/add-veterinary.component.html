@@ -1,0 +1,84 @@
+<div class="container">
+
+    <!-- Fait référence au nom définie dans le fichier.ts-->
+    <form [formGroup]="veterinaryFormGroup" (ngSubmit)="onSubmit()" autocomplete="off">
+
+        <div formGroupName="veterinary" class="form-area">
+
+            <h3 class="text-center curv-perso py-4"><u>Nouveau vétérinaire :</u></h3>
+            <div class="row pb-3">
+                <div class="col-6">
+                    <span>Nom : </span>
+                    <span class="input-space pl-2">
+                        <input formControlName="lastName" type="text" >
+                    </span>
+                </div>
+                <div class="col-6">
+                    <span>Prénom : </span>
+                    <span class="input-space pl-2">
+                        <input formControlName="firstName" type="text" >
+                    </span>
+                </div>
+            </div>
+
+            <div class="row py-3">
+                <div class="col-4">
+                    <span>Numéro de rue : </span>
+                    <span class="input-space pl-2">
+                        <input formControlName="streetNumber" type="number" placeholder="10" class="px-0 col-sm-2">
+                    </span>
+                </div>
+                <div class="col-8">
+                    <span class="pl-2">Nom de rue : </span>
+                    <span class="input-space pl-2">
+                        <input formControlName="streetName" type="text" placeholder="Route du solle" class="px-0 col-md-6">
+                    </span>
+                </div>
+            </div>
+
+            <div class="row py-3">
+                <div class="col-5">
+                    <span>Code postal : </span>
+                    <span class="input-space pl-2">
+                        <input formControlName="zipCode" type="number" placeholder="24150" class="px-0 col-md-3">
+                    </span>
+                </div>
+                <div class="col-6">
+                    <span class="pl-4">Ville : </span>
+                    <span class="input-space pl-2">
+                        <input formControlName="city" type="text" placeholder="Lalinde" class="px-0 col-md-7">
+                    </span>
+                </div>
+            </div>
+
+            <div class="row pt-3">
+                <div class="col-5">
+                    <span>Numéro de téléphone : </span>
+                    <span class="input-space pl-2">
+                        <input formControlName="phoneNumber" type="text" placeholder="0102030405" class="px-0 col-md-4">
+                    </span>
+                </div>
+            </div>
+
+        </div>
+        <!-- submit button -->
+
+        <div class="text-center py-4">
+            <button type="submit" class="btn btn-info" [disabled]="!veterinaryFormGroup.valid">Ajouter</button>
+        </div>
+
+
+        <div *ngIf="!veterinaryFormGroup.valid">
+            <h3 class="curv-perso pt-3">Instructions pour compléter ce formulaire: </h3>
+            <ul>
+                <li>Tous les champs doivent être complétés</li>
+                <li>Le prénom doit commencer par une majuscule et avoir au moins 2 caractères</li>
+                <li>Le nom de la rue doit contenir au moins 5 caractères</li>
+                <li>Le code postal doit contenir 5 chiffres</li>
+                <li>Le numéro de téléphone doit contenir 10 chiffres (pas de tiret, ni d'espace, ni de slash)</li>
+                <li>Le numéro de téléphone doit être unique</li>
+            </ul>
+
+        </div>
+    </form>
+</div>

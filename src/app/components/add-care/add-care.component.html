@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <h4 class="py-4 curv-perso"><u> Soin pour : {{myAnimal.name}}</u></h4>
+
+    <!-- Fait référence au nom définie dans le fichier.ts-->
+    <form [formGroup]="careFormGroup" (ngSubmit)="onSubmit()" autocomplete="off">
+        <div formGroupName="care" class="form-area ">
+
+            <p><u>Choisir un vétérinaire:</u> </p>
+
+            <div *ngFor="let tempVet of allVeterinaries" class="form-check form-check-inline py-3">
+                <input class="form-check-input pl-4" formControlName="veterinaryId" type="radio" id="{{ tempVet.id }}"
+                    value="{{ tempVet.id }}">
+                <label class="form-check-label px-2" for="{{ tempVet.id }}">
+                    Dr. {{tempVet.lastName.toUpperCase()}} {{tempVet.firstName}} <br> Téléphone:
+                    {{tempVet.phoneNumber}}
+                </label>
+            </div>
+            <div class="py-3">
+                <span>Type d'examen : </span>
+                <span class="input-space pl-2">
+                    <input formControlName="examen" type="text" class="px-1 col-md-6">
+                </span>
+            </div>
+
+            <div class="row pl-3 py-3">
+                <span>Date d'examen : </span>
+                <span class="input-space px-3">
+                    <input type="date" placeholder="jour/mois/année" class="form-control" formControlName="examenDate">
+                </span>
+
+                <span class="pl-4"> Heure : </span>
+                <span class="input-space px-3">
+                    <input type="time" class="form-control" formControlName="examenTime">
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="row py-4">
+            <div class="col-md-3"></div>
+            <div>
+                <button type="submit" class="btn btn-info" [disabled]="!careFormGroup.valid">Valider</button>
+            </div>
+        </div>
+
+        <div *ngIf="!careFormGroup.valid">
+            <h3 class="curv-perso pt-3">Instructions pour compléter ce formulaire: </h3>
+            <ul>
+                <li>Tous les champs doivent être complétés</li>
+                <li>Les dates d'examen doit être supérieure ou égale à la date du jour</li>
+            </ul>
+        </div>
+
+    </form>
+
+</div>
