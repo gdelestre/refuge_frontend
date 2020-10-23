@@ -13,3 +13,9 @@ input.ng-touched.ng-valid  {
     border-left: 5px green solid;
 }
 
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+

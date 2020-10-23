@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Veterinary } from 'src/app/classes/veterinary';
 import { VeterinaryCareService } from 'src/app/services/veterinary-care.service';
 
@@ -13,13 +14,14 @@ export class AddVeterinaryComponent implements OnInit {
   veterinaryFormGroup: FormGroup;
   newVet: Veterinary = new Veterinary();
 
-  constructor(private formBuilder: FormBuilder, private veterinaryService: VeterinaryCareService) { }
+  constructor(private formBuilder: FormBuilder, private veterinaryService: VeterinaryCareService,
+    private router:Router) { }
 
   ngOnInit(): void {
     this.veterinaryFormGroup = this.formBuilder.group({
       veterinary: this.formBuilder.group({
         firstName: ['', Validators.compose(
-          [Validators.required, Validators.pattern('^[A-Z][a-z]{1,}$')]
+          [Validators.required, Validators.pattern('^[A-Z][a-zéèê]+(-[A-Za-z][a-zéèê]+){0,2}$')]
         )],
         lastName: ['', Validators.required],
         zipCode: ['',Validators.compose(
@@ -42,6 +44,7 @@ export class AddVeterinaryComponent implements OnInit {
   onSubmit() {
     this.saveVeterinary();
     this.veterinaryFormGroup.reset();
+    this.router.navigate(['/cares']);
   }
 
   saveVeterinary() {

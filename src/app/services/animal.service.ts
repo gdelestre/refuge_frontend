@@ -42,10 +42,16 @@ export class AnimalService {
     return this.httpClient.post(this.baseUrl, animal).pipe(catchError(this.handleError));;
   }
 
+  updateAnimal(animal: object): Observable<object> {
+    return this.httpClient.put(this.baseUrl, animal);
+  } 
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = "";
     if (error.status == 403) {
       errorMessage = `Ajout impossible! Ce nom est déjà utilisé.`;
+    }else{
+      errorMessage = `Erreur. L'ajout de l'animal n'a pas pu être effectué.`;
     }
     window.alert(errorMessage);
     return throwError(errorMessage);

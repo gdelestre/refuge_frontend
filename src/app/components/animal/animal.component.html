@@ -1,11 +1,11 @@
 <div class="row justify-content-start">
     <div class="col-2">
         <div class="menu-sidebar-content pt-4 curv-perso">
-            <a class="nav-item nav-link py-2" routerLink="/animals/Chien">Les chiens</a>
-            <a class="nav-item nav-link py-2" routerLink="/animals/Chat">Les chats</a>
-            <a class="nav-item nav-link py-2" routerLink="/animals/NAC_Rongeur">Les rongeurs</a>
-            <a class="nav-item nav-link py-2" routerLink="/animals/NAC_Reptile">Les reptiles</a>
-            <a class="nav-item nav-link py-2" routerLink="/animals/Autre">Autre</a>
+            <a class="nav-item nav-link py-4" routerLink="/animals/Chien">Nos chiens</a>
+            <a class="nav-item nav-link py-4" routerLink="/animals/Chat">Nos chats</a>
+            <a class="nav-item nav-link py-4" routerLink="/animals/NAC_Rongeur">Nos rongeurs</a>
+            <a class="nav-item nav-link py-4" routerLink="/animals/NAC_Reptile">Nos reptiles</a>
+            <a class="nav-item nav-link py-4" routerLink="/animals/Autre">Autre Animaux</a>
         </div>
     </div>
     <div class="col-10">
@@ -31,7 +31,7 @@
                         <a routerLink="/animals/details/{{ tempAnimal.id }}" routerLinkActive="active-link">
                             <!-- Si ni adopté, ni en famille d'accueil: bordure rouge, sinon si adopté: bordure verte, sinon (en famille d'acceuil): bordure orange-->
                             <div class="animalsContainer"
-                                [ngStyle]="{'border-color':(!tempAnimal.adoptiveFamily && !tempAnimal.hostFamily) ? 'red' : (tempAnimal.adoptiveFamily ? 'green' : 'orange') }">
+                                [ngStyle]="{'border-color':(!tempAnimal.adopted && !tempAnimal.hostFamily) ? 'red' : (tempAnimal.adopted ? 'green' : 'orange') }">
                                 <p class="text-center mt-2">{{ tempAnimal.name }}</p>
                             </div>
                         </a>

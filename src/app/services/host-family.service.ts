@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HostFamily } from '../classes/host-family';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,21 @@ export class HostFamilyService {
 
   getAllHostFamily(): Observable<HostFamily[]> {
     return this.httpClient.get<HostFamily[]>(this.baseUrl);
+  }
+
+  createHostFamily(hostFamily: object): Observable<object> {
+    return this.httpClient.post(this.baseUrl, hostFamily).pipe(catchError(this.handleError));
+  }
+
+  handleError(error: HttpErrorResponse) {
+    let errorMessage = "";
+    if (error.status == 403) {
+      errorMessage = `Ajout impossible! Ce numéro de téléphone est déjà utilisé.`;
+    }else{
+      errorMessage = `Erreur. L'ajout n'a pas pu être effectué.`;
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
   }
   
 

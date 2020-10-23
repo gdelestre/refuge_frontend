@@ -8,9 +8,13 @@ import { AdoptiveFamilyComponent } from './components/adoptive-family/adoptive-f
 import { AddAnimalComponent } from './components/add-animal/add-animal.component';
 import { AddVeterinaryComponent } from './components/add-veterinary/add-veterinary.component';
 import { AddCareComponent } from './components/add-care/add-care.component';
+import { AddAdoptiveFamilyComponent } from './components/add-adoptive-family/add-adoptive-family.component';
+import { AddHostFamilyComponent } from './components/add-host-family/add-host-family.component';
 
 
 const routes: Routes = [
+{path: 'host/:idAnimal', component: AddHostFamilyComponent },
+{path: 'adopt/:idAnimal', component: AddAdoptiveFamilyComponent },
 {path: 'care/:idAnimal', component: AddCareComponent },
 {path: 'veterinaries/add', component: AddVeterinaryComponent },
 {path: 'animals/add', component: AddAnimalComponent },

@@ -20,15 +20,26 @@
                     <td> {{ myAnimal.sexe }}</td>
                     <td> {{ myAnimal.birthDate | date: 'dd/MM/yyyy'}}</td>
                     <td> {{ myAnimal.arrivalDate | date: 'dd/MM/yyyy'}}</td>
-
                 </tr>
             </tbody>
         </table>
     </div>
+    <div class="row pl-4">
+        <button *ngIf="!myAnimal.adopted" routerLink="/adopt/{{ myAnimal.id }}"
+            class="btn btn-outline-secondary float-left">
+            Ajouter un adoptant
+        </button>
+        <div class="col-md-2"></div>
+        <button *ngIf="!myAnimal.hostFamily && !myAnimal.adopted" routerLink="/host/{{ myAnimal.id }}"
+            class="btn btn-outline-secondary float-right">
+            Ajouter un acceuillant
+        </button>
+        <br>
+    </div>
 
     <br>
 
-    <div class="container-fluid pt-3" *ngIf="myAnimal.adoptiveFamily">
+    <div class="container-fluid pt-3" *ngIf="myAnimal.adopted">
         <h4 class="curv-perso"><u>Famille d'adoption :</u></h4>
         <table class="table">
             <thead class="thead-light">
@@ -42,17 +53,20 @@
             </thead>
             <tbody>
                 <tr>
-                    <td> {{ myAnimal.adoptiveFamily.firstName }}</td>
-                    <td> {{ myAnimal.adoptiveFamily.lastName }}</td>
-                    <td> {{ myAnimal.adoptiveFamily.streetNumber }} {{ myAnimal.adoptiveFamily.streetName }}
-                        {{ myAnimal.adoptiveFamily.zipCode }} {{ myAnimal.adoptiveFamily.city }}</td>
-                    <td> {{ myAnimal.adoptiveFamily.phoneNumber |slice:0:2 }}-{{ myAnimal.adoptiveFamily.phoneNumber |slice:2:4 }}-{{ myAnimal.adoptiveFamily.phoneNumber |slice:4:6 }}-{{ myAnimal.adoptiveFamily.phoneNumber |slice:6:8 }}-{{ myAnimal.adoptiveFamily.phoneNumber |slice:8:10 }}
+                    <td> {{ myAnimal.adoption.adoptiveFamily.lastName }}</td>
+                    <td> {{ myAnimal.adoption.adoptiveFamily.firstName }}</td>
+                    <td> {{ myAnimal.adoption.adoptiveFamily.streetNumber }}
+                        {{ myAnimal.adoption.adoptiveFamily.streetName }}
+                        {{ myAnimal.adoption.adoptiveFamily.zipCode }} {{ myAnimal.adoption.adoptiveFamily.city }}</td>
+                    <td> {{ myAnimal.adoption.adoptiveFamily.phoneNumber |slice:0:2 }}-{{ myAnimal.adoption.adoptiveFamily.phoneNumber |slice:2:4 }}-{{ myAnimal.adoption.adoptiveFamily.phoneNumber |slice:4:6 }}-{{ myAnimal.adoption.adoptiveFamily.phoneNumber |slice:6:8 }}-{{ myAnimal.adoption.adoptiveFamily.phoneNumber |slice:8:10 }}
                     </td>
-                    <td> {{ myAnimal.adoptiveFamily.adoptionDate | date: 'dd/MM/yyyy'}}</td>
+                    <td> {{ myAnimal.adoption.adoptionDate | date: 'dd/MM/yyyy'}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
+
+
 
     <div class="container-fluid pt-3" *ngIf="myAnimal.hostFamily">
         <h4 class="curv-perso"><u>Famille d'acceuil :</u></h4>
@@ -67,8 +81,8 @@
             </thead>
             <tbody>
                 <tr>
-                    <td> {{ myAnimal.hostFamily.firstName }}</td>
                     <td> {{ myAnimal.hostFamily.lastName }}</td>
+                    <td> {{ myAnimal.hostFamily.firstName }}</td>
                     <td> {{ myAnimal.hostFamily.streetNumber }} {{ myAnimal.hostFamily.streetName }}
                         {{ myAnimal.hostFamily.zipCode }} {{ myAnimal.hostFamily.city }}</td>
                     <td> {{ myAnimal.hostFamily.phoneNumber |slice:0:2 }}-{{ myAnimal.hostFamily.phoneNumber |slice:2:4 }}-{{ myAnimal.hostFamily.phoneNumber |slice:4:6 }}-{{ myAnimal.hostFamily.phoneNumber |slice:6:8 }}-{{ myAnimal.hostFamily.phoneNumber |slice:8:10 }}
@@ -100,8 +114,9 @@
     </div>
 
     <div class="container-fluid">
-        <button routerLink="/care/{{ myAnimal.id }}" class="btn btn-outline-secondary float-left">Ajouter un
-            soin</button>
+        <button routerLink="/care/{{ myAnimal.id }}" class="btn btn-outline-secondary float-left">
+            Ajouter un soin
+        </button>
     </div>
 
     <div class="container-fluid pt-3">

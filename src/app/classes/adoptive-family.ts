@@ -1,5 +1,6 @@
+import { AdoptAnimal } from './adopt-animal';
 import { Person } from './person';
 
 export class AdoptiveFamily extends Person {
-    adoptionDate: Date;
+    adoptions: AdoptAnimal[];
 }

@@ -51,7 +51,7 @@ export const validDate: ValidatorFn = (control) => {
 })
 export class AddCareComponent implements OnInit {
 
-  myAnimal: Animal;
+  myAnimal: Animal  = new Animal();
   allVeterinaries: Veterinary[];
   myVeterinary: Veterinary;
   newVeterinaryCare: VeterinaryCare = new VeterinaryCare();
@@ -82,13 +82,6 @@ export class AddCareComponent implements OnInit {
     );
   }
 
-  getSelectedVeterinary(){
-    let idVeterinary = this.getIdVeterinary();
-    this.veterinaryService.getOneVeterinary(idVeterinary).subscribe(
-      data => this.myVeterinary = data
-    );
-  }
-
   private getIdAnimal() {
     return this.route.snapshot.paramMap.get("idAnimal");
   }
@@ -104,7 +97,6 @@ export class AddCareComponent implements OnInit {
   }
 
   onSubmit(){
-    this.getSelectedVeterinary();
     this.saveVeterinaryCare();
     this.careFormGroup.reset();
     this.router.navigate(['/cares']);
@@ -115,8 +107,6 @@ export class AddCareComponent implements OnInit {
     this.newVeterinaryCare.examen = this.careFormGroup.get('care').value.examen;
     this.newVeterinaryCare.examenDate = this.careFormGroup.get('care').value.examenDate;
     this.newVeterinaryCare.examenTime = this.careFormGroup.get('care').value.examenTime;
-    this.newVeterinaryCare.animal = this.myAnimal;
-    this.newVeterinaryCare.veterinary = this.myVeterinary;
 
     this.save();
   }

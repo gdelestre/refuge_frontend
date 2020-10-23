@@ -1,6 +1,6 @@
 import { Sexe } from './enum/sexe.enum';
 import { Species } from './enum/species.enum';
-import { AdoptiveFamily } from './adoptive-family';
+import { AdoptAnimal } from './adopt-animal';
 import { HostFamily } from './host-family';
 
 export class Animal {
@@ -11,6 +11,8 @@ export class Animal {
     species: Species;
     birthDate: Date;
     arrivalDate: Date;
-    adoptiveFamily: AdoptiveFamily;
     hostFamily: HostFamily;
+    adopted: boolean;
+    adoption: AdoptAnimal;
+
 }

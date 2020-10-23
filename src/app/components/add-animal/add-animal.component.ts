@@ -49,6 +49,7 @@ export class AddAnimalComponent implements OnInit {
 
   animalFormGroup: FormGroup;
   newAnimal: Animal = new Animal();
+  espSelected: string = "Chat";
 
   constructor(private formBuilder: FormBuilder, private animalService: AnimalService) { }
 
@@ -83,8 +84,8 @@ export class AddAnimalComponent implements OnInit {
     this.newAnimal.sexe = this.animalFormGroup.get('animal').value.sexe;
     this.newAnimal.birthDate = this.animalFormGroup.get('animal').value.birthDate;
     this.newAnimal.arrivalDate = this.animalFormGroup.get('animal').value.arrivalDate;
-    this.newAnimal.adoptiveFamily = null;
     this.newAnimal.hostFamily = null;
+    this.newAnimal.adopted = false;
     this.save();
   }
 

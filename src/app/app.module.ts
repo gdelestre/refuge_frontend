@@ -14,6 +14,8 @@ import { AdoptiveFamilyComponent } from './components/adoptive-family/adoptive-f
 import { AddAnimalComponent } from './components/add-animal/add-animal.component';
 import { AddVeterinaryComponent } from './components/add-veterinary/add-veterinary.component';
 import { AddCareComponent } from './components/add-care/add-care.component';
+import { AddAdoptiveFamilyComponent } from './components/add-adoptive-family/add-adoptive-family.component';
+import { AddHostFamilyComponent } from './components/add-host-family/add-host-family.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { AddCareComponent } from './components/add-care/add-care.component';
     AdoptiveFamilyComponent,
     AddAnimalComponent,
     AddVeterinaryComponent,
-    AddCareComponent
+    AddCareComponent,
+    AddAdoptiveFamilyComponent,
+    AddHostFamilyComponent
   ],
   imports: [
     HttpClientModule,

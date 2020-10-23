@@ -1,35 +1,39 @@
 <div class="container-fluid pt-4">
     <div class="container-fluid">
 
-        <h3 class="curv-perso pb-3"><u>Nos adoptants :</u></h3>
+        <h3 class="curv-perso pb-3"><u>Nos adoptions :</u></h3>
 
-        <ul *ngFor="let tempAdopt of myAdoptiveFamilies">
-            <li>
-                <h5>M./Mme {{tempAdopt.lastName.toUpperCase() }} {{ tempAdopt.firstName}}</h5>
-            </li>
-            <div>
-                <div class="row">
-                    <div class="col-4">
-                        Adresse: {{ tempAdopt.streetNumber }} {{ tempAdopt.streetName }}
-                        {{ tempAdopt.zipCode }} {{ tempAdopt.city }}
-                    </div>
-                    <div class="col-8">Téléphone:
-                        {{tempAdopt.phoneNumber |slice:0:2 }}-{{tempAdopt.phoneNumber |slice:2:4 }}-{{ tempAdopt.phoneNumber |slice:4:6 }}-{{ tempAdopt.phoneNumber |slice:6:8 }}-{{ tempAdopt.phoneNumber |slice:8:10 }}
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <div class="row pt-2 pb-3">
-                    <div class="col col-md-3">
-                        <p>A adopté(e) le {{tempAdopt.adoptionDate | date: 'dd/MM/yyyy'}} : </p>
-                    </div>
-                    <ng-container *ngFor="let tempAnimal of myAdoptedAnimals" class="col-md-auto">
-                        <div>
-                            <span *ngIf="tempAnimal.adoptiveFamily.phoneNumber === tempAdopt.phoneNumber"
-                                class="pr-4">{{ tempAnimal.name }} </span>
+        <ul *ngFor="let tempAdoption of myAdoptions" class="pb-3">
+            <div *ngFor="let tempAnimal of myAdoptedAnimals">
+                <div *ngIf="tempAnimal.adoption.id === tempAdoption.id">
+                    <li>
+                        <h5>
+                            Adoption de {{ tempAnimal.name }} le
+                                {{tempAdoption.adoptionDate | date: 'dd/MM/yyyy'}}
+                                par M./Mme {{tempAdoption.adoptiveFamily.lastName.toUpperCase() }}
+                                {{ tempAdoption.adoptiveFamily.firstName}}.
+                        </h5>
+                    </li>
+                    <div>
+                        <div class="pl-4">
+                            <span class="pr-4">
+                                Adresse: {{ tempAdoption.adoptiveFamily.streetNumber }}
+                                {{ tempAdoption.adoptiveFamily.streetName }}
+                                {{ tempAdoption.adoptiveFamily.zipCode }} {{ tempAdoption.adoptiveFamily.city }}
+                            </span>
+                            <span class="px-4">Téléphone:
+                                {{tempAdoption.adoptiveFamily.phoneNumber |slice:0:2 }}-{{tempAdoption.adoptiveFamily.phoneNumber |slice:2:4 }}-{{ tempAdoption.adoptiveFamily.phoneNumber |slice:4:6 }}-{{ tempAdoption.adoptiveFamily.phoneNumber |slice:6:8 }}-{{ tempAdoption.adoptiveFamily.phoneNumber |slice:8:10 }}
+                            </span>
+                            <span class="px-4">
+                                <button>Valider l'adoption</button>
+                            </span>
+                            <span class="px-4">
+                                <button>Annuler l'adoption</button>
+                            </span>
                         </div>
-                    </ng-container>
+
+                    </div>
+
                 </div>
             </div>
         </ul>

@@ -3,6 +3,8 @@ import { AdoptiveFamily } from 'src/app/classes/adoptive-family';
 import { Animal } from 'src/app/classes/animal';
 import { AnimalService } from 'src/app/services/animal.service';
 import { AdoptiveFamilyService } from 'src/app/services/adoptive-family.service';
+import { AdoptAnimal } from 'src/app/classes/adopt-animal';
+import { AdoptAnimalService } from 'src/app/services/adopt-animal.service';
 
 @Component({
   selector: 'app-adoptive-family',
@@ -11,23 +13,24 @@ import { AdoptiveFamilyService } from 'src/app/services/adoptive-family.service'
 })
 export class AdoptiveFamilyComponent implements OnInit {
 
-  myAdoptiveFamilies: AdoptiveFamily[] =[];
+  myAdoptions: AdoptAnimal[] =[];
   myAdoptedAnimals: Animal[] = [];
 
-  constructor(private animalService: AnimalService, private adoptedFamilyService: AdoptiveFamilyService) { }
+  constructor(private animalService: AnimalService, private adoptedFamilyService: AdoptiveFamilyService,
+    private adoptAnimalService: AdoptAnimalService) { }
 
   ngOnInit(): void {
-    this.getAllHostFamilies();
-    this.getAllAnimalsInHostFamilies();
+    this.getAllAdoptionss();
+    this.getAllAnimalsInAdoptivesFamilies();
   }
 
-  getAllHostFamilies(){
-    this.adoptedFamilyService.getAllHostFamily().subscribe(
-      data => this.myAdoptiveFamilies = data
+  getAllAdoptionss(){
+    this.adoptAnimalService.getAllAdoptions().subscribe(
+      data => this.myAdoptions = data
     );
   }
 
-  getAllAnimalsInHostFamilies(){
+  getAllAnimalsInAdoptivesFamilies(){
     this.animalService.getAdoptedAnimals().subscribe(
       data => this.myAdoptedAnimals = data
     );

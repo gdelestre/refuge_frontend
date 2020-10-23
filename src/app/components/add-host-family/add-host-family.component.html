@@ -1,0 +1,136 @@
+<div class="container-fluid">
+    <h4 class="py-4 pl-4 curv-perso"><u> Ajouter un adoptant pour : {{myAnimal.name}}</u></h4>
+  
+    <h4 class="py-4 pl-4 curv-perso"><u> Utiliser une famille d'accueil existante ? </u></h4>
+    <div class="form-check form-check-inline px-4">
+      <input class="form-check-input" type="radio" name="chooseOption" id="yes" (click)="setRadio('Yes')" value="1">
+      <label class="form-check-label" for="yes">OUI</label>
+    </div>
+    <div class="form-check form-check-inline px-4">
+      <input class="form-check-input" type="radio" name="chooseOption" id="no" (click)="setRadio('No')" value="2">
+      <label class="form-check-label" for="no">NON</label>
+    </div>
+  
+  
+    <div *ngIf="isSelected('Yes')" class="pt-4">
+  
+      <form [formGroup]="hostWithExistingFamilyFormGroup" (ngSubmit)="onSubmitExistingFamily()" autocomplete="off">
+  
+        <div formGroupName="hostAnimal" class="form-area">
+  
+          <div *ngFor="let tempFamily of allHostFamilies" class="form-check form-check-inline py-3">
+            <input class="form-check-input pl-4" (click)="getFamily(tempFamily)" formControlName="hostFamilyId" type="radio" id="{{ tempFamily.id }}"
+              value="{{ tempFamily.id }}">
+            <label class="form-check-label px-2" for="{{ tempFamily.id }}">
+              Mr/Mme {{tempFamily.lastName.toUpperCase()}} {{tempFamily.firstName}} <br> Téléphone:
+              {{tempFamily.phoneNumber}}
+            </label>
+          </div>
+  
+        </div>
+  
+  
+        <!-- submit button -->
+  
+        <div class="text-center py-4">
+          <button type="submit" class="btn btn-info" [disabled]="!hostWithExistingFamilyFormGroup.valid">Ajouter</button>
+        </div>
+      </form>
+  
+    </div>
+  
+  
+    <div *ngIf="isSelected('No')" class="pt-4">
+  
+      <!-- Fait référence au nom définie dans le fichier.ts-->
+      <form [formGroup]="hostWithNewFamilyFormGroup" (ngSubmit)="onSubmitNewFamily()" autocomplete="off">
+  
+        <div formGroupName="hostFamily" class="form-area">
+          <div class="form-group centered pt-4">
+            <div class="col-md-8 border rounded border-dark">
+  
+              <h3 class="centered curv-perso py-4"><u>Nouveau adoptant :</u></h3>
+              <div class="row">
+                <div class="col">
+                  <label>Nom :</label>
+                </div>
+                <div class="col">
+                  <label>Prénom :</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <input type="text" class="form-control" formControlName="lastName" placeholder="Dupond">
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" formControlName="firstName" placeholder="Jean">
+                </div>
+              </div>
+              <div class="row pt-4">
+                <div class="col">
+                  <label>Numéro de rue :</label>
+                </div>
+                <div class="col">
+                  <label>Nom de rue:</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <input type="number" class="form-control" formControlName="streetNumber" placeholder="10">
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" formControlName="streetName" placeholder="Rue du parc">
+                </div>
+              </div>
+              <div class="row pt-4">
+                <div class="col">
+                  <label>Code Postal :</label>
+                </div>
+                <div class="col">
+                  <label>Ville:</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <input type="number" class="form-control" formControlName="zipCode" placeholder="24150">
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" formControlName="city" placeholder="Lalinde">
+                </div>
+              </div>
+              <div class="row pt-4">
+                <div class="col">
+                  <label>Numéro de téléphone :</label>
+                </div>
+              </div>
+              <div class="row pb-4">
+                <div class="col-md-6">
+                  <input type="text" class="form-control" formControlName="phoneNumber" placeholder="0102030405">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- submit button -->
+  
+        <div class="text-center py-4">
+          <button type="submit" class="btn btn-info" [disabled]="!hostWithNewFamilyFormGroup.valid">Ajouter</button>
+        </div>
+  
+  
+        <div *ngIf="!hostWithNewFamilyFormGroup.valid">
+          <h3 class="curv-perso pt-3">Instructions pour compléter ce formulaire: </h3>
+          <ul>
+            <li>Tous les champs doivent être complétés</li>
+            <li>Le prénom doit commencer par une majuscule et avoir au moins 2 caractères</li>
+            <li>Le nom de la rue doit contenir au moins 5 caractères</li>
+            <li>Le code postal doit contenir 5 chiffres</li>
+            <li>Le numéro de téléphone doit contenir 10 chiffres (pas de tiret, ni d'espace, ni de slash)</li>
+            <li>Le numéro de téléphone doit être unique</li>
+          </ul>
+  
+        </div>
+      </form>
+  
+    </div>
