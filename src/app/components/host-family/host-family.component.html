@@ -5,7 +5,17 @@
 
         <ul *ngFor="let tempHost of myHostFamilies">
             <li *ngIf="tempHost.free">
-                <h5>M./Mme {{tempHost.lastName.toUpperCase() }} {{ tempHost.firstName}}</h5>
+                <div class="row">
+                    <div class="pl-2 col-md-4">
+                        <h5 class="pl-2">M./Mme {{tempHost.lastName.toUpperCase() }} {{ tempHost.firstName}}</h5>
+                    </div>
+                    <div>
+                        <ui-switch checkedLabel="Disponible!" uncheckedLabel="Plus de place"
+                        uncheckedTextColor="red"
+                        [checked]= tempHost.free
+                        (changeEvent)="onChangeEvent(tempHost)" ></ui-switch>
+                      </div>
+                </div>
             </li>
             <div *ngIf="tempHost.free">
                 <div class="row">
@@ -13,8 +23,13 @@
                         Adresse: {{ tempHost.streetNumber }} {{ tempHost.streetName }}
                         {{ tempHost.zipCode }} {{ tempHost.city }}
                     </div>
-                    <div class="col-8">Téléphone:
+                    <div class="col-4">Téléphone:
                         {{tempHost.phoneNumber |slice:0:2 }}-{{tempHost.phoneNumber |slice:2:4 }}-{{ tempHost.phoneNumber |slice:4:6 }}-{{ tempHost.phoneNumber |slice:6:8 }}-{{ tempHost.phoneNumber |slice:8:10 }}
+                    </div>
+                    <div class="col-1">
+                        <button routerLink="/hosts/{{ tempHost.id }}/update" class="btn btn-outline-info">
+                            Modifier
+                        </button>
                     </div>
                 </div>
             </div>
@@ -45,7 +60,17 @@
 
         <ul *ngFor="let tempHost of myHostFamilies">
             <li *ngIf="!tempHost.free">
-                <h5>M./Mme {{tempHost.lastName.toUpperCase() }} {{ tempHost.firstName}}</h5>
+                <div class="row">
+                    <div class="pl-2 col-md-4">
+                        <h5 class="pl-2">M./Mme {{tempHost.lastName.toUpperCase() }} {{ tempHost.firstName}}</h5>
+                    </div>
+                    <div>
+                        <ui-switch checkedLabel="Disponible!" uncheckedLabel="Plus de place"
+                        uncheckedTextColor="red"
+                        [checked]= tempHost.free
+                        (changeEvent)="onChangeEvent(tempHost)" ></ui-switch>
+                      </div>
+                </div>
             </li>
             <div *ngIf="!tempHost.free">
                 <div class="row">
@@ -53,8 +78,13 @@
                         Adresse: {{ tempHost.streetNumber }} {{ tempHost.streetName }}
                         {{ tempHost.zipCode }} {{ tempHost.city }}
                     </div>
-                    <div class="col-8">Téléphone:
+                    <div class="col-4">Téléphone:
                         {{tempHost.phoneNumber |slice:0:2 }}-{{tempHost.phoneNumber |slice:2:4 }}-{{ tempHost.phoneNumber |slice:4:6 }}-{{ tempHost.phoneNumber |slice:6:8 }}-{{ tempHost.phoneNumber |slice:8:10 }}
+                    </div>
+                    <div class="col-1">
+                        <button routerLink="/hosts/{{ tempHost.id }}/update" class="btn btn-outline-info">
+                            Modifier
+                        </button>
                     </div>
                 </div>
             </div>

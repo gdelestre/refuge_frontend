@@ -1,21 +1,41 @@
 
 .curv-perso {
-    font-family: Apple Chancery, cursive;
-    font-style: italic;
-  }
+  font-family: Apple Chancery, cursive;
+  font-style: italic;
+}
 
 input.ng-touched.ng-invalid {
-    border-width: 1px;
-    border-left: red solid 5px;
+  border-width: 1px;
+  border-left: red solid 5px;
 }
 
 input.ng-touched.ng-valid  {
-    border-left: 5px green solid;
+  border-left: 5px green solid;
 }
 
 .centered {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+/* Style the links inside the navigation bar */
+
+.nav-perso a {
+  color: black;
+}
+
+.nav-perso a:hover {
+  text-decoration: underline;
+  color: grey;
+}
+
+.nav-perso a:active {
+  border-bottom: 3px solid red;
+  color: gold;
+}
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

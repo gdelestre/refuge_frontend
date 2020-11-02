@@ -13,6 +13,8 @@ import { HostFamilyService } from 'src/app/services/host-family.service';
 })
 export class AddHostFamilyComponent implements OnInit {
 
+  title: string = "Ajouter une famille d'accueil pour";
+
   myAnimal: Animal = new Animal();
   myHostFamily: HostFamily = new HostFamily();
 
@@ -27,6 +29,7 @@ export class AddHostFamilyComponent implements OnInit {
     private hostFamilyService: HostFamilyService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    this.isUpdate();
     this.getAnimal();
     this.getAllHostFamilies();
     this.hostWithNewFamilyFormGroup = this.formBuilder.group({
@@ -47,7 +50,7 @@ export class AddHostFamilyComponent implements OnInit {
         )],
         phoneNumber: ['', Validators.compose(
           [Validators.required, Validators.pattern('^[0-9]{10}$')]
-        )],
+        )]
       })
     });
 
@@ -57,6 +60,12 @@ export class AddHostFamilyComponent implements OnInit {
       })
 
     });
+  }
+
+  isUpdate(){
+    if(this.router.url.startsWith("/update")){
+      this.title = "Changer la famille d'accueil pour";
+    }
   }
 
   private getIdAnimal() {
@@ -100,6 +109,7 @@ export class AddHostFamilyComponent implements OnInit {
   onSubmitNewFamily() {
     this.saveHostFamily();
     this.hostWithNewFamilyFormGroup.reset();
+    this.router.navigate(['/animals/']);
   }
 
   saveHostFamily() {
@@ -120,6 +130,7 @@ export class AddHostFamilyComponent implements OnInit {
   onSubmitExistingFamily() {
     this.saveAdoption();
     this.hostWithExistingFamilyFormGroup.reset();
+    this.router.navigate(['/animals/']);
   }
 
   saveAdoption(){

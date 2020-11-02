@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Veterinary } from 'src/app/classes/veterinary';
-import { VeterinaryCareService } from 'src/app/services/veterinary-care.service';
+import { VeterinaryService } from 'src/app/services/veterinary.service';
 
 @Component({
   selector: 'app-add-veterinary',
@@ -14,7 +14,7 @@ export class AddVeterinaryComponent implements OnInit {
   veterinaryFormGroup: FormGroup;
   newVet: Veterinary = new Veterinary();
 
-  constructor(private formBuilder: FormBuilder, private veterinaryService: VeterinaryCareService,
+  constructor(private formBuilder: FormBuilder, private veterinaryService: VeterinaryService,
     private router:Router) { }
 
   ngOnInit(): void {

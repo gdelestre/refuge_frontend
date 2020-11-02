@@ -13,6 +13,7 @@ export class HostFamilyComponent implements OnInit {
 
   myHostFamilies: HostFamily[] = [];
   myAnimalsInHostFamily: Animal[] = [];
+  hostFamily: HostFamily;
 
   constructor(private hostFamilyService: HostFamilyService, private animalService: AnimalService) { }
 
@@ -21,16 +22,32 @@ export class HostFamilyComponent implements OnInit {
     this.getAllAnimalsInHostFamilies();
   }
 
-  getAllHostFamilies(){
+  getAllHostFamilies() {
     this.hostFamilyService.getAllHostFamily().subscribe(
       data => this.myHostFamilies = data
     );
   }
 
-  getAllAnimalsInHostFamilies(){
+  getAllAnimalsInHostFamilies() {
     this.animalService.getAnimalsInHostFamily().subscribe(
       data => this.myAnimalsInHostFamily = data
     );
+  }
+
+  onChangeEvent(hostFamilySelected) {
+    this.hostFamily = hostFamilySelected;
+    if (this.hostFamily.free == true) {
+      this.hostFamily.free = false;
+    } else {
+      this.hostFamily.free = true;
+    }
+
+    this.updateFamily();
+  }
+
+  updateFamily() {
+    this.hostFamilyService.updateHostFamily(this.hostFamily)
+      .subscribe(data => console.log(data), error => console.log(error));
   }
 
 

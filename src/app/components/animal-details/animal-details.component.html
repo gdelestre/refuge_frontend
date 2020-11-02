@@ -25,15 +25,28 @@
         </table>
     </div>
     <div class="row pl-4">
-        <button *ngIf="!myAnimal.adopted" routerLink="/adopt/{{ myAnimal.id }}"
-            class="btn btn-outline-secondary float-left">
-            Ajouter un adoptant
-        </button>
-        <div class="col-md-2"></div>
-        <button *ngIf="!myAnimal.hostFamily && !myAnimal.adopted" routerLink="/host/{{ myAnimal.id }}"
-            class="btn btn-outline-secondary float-right">
-            Ajouter un acceuillant
-        </button>
+        <div class="pr-5 pl-2">
+            <button *ngIf="!myAnimal.adopted" routerLink="/adopt/{{ myAnimal.id }}" class="btn btn btn-outline-success">
+                Ajouter un adoptant
+            </button>
+        </div>
+        <div class="px-5">
+            <button *ngIf="!myAnimal.hostFamily && !myAnimal.adopted" routerLink="/host/{{ myAnimal.id }}"
+                class="btn btn btn-outline-warning">
+                Ajouter un acceuillant
+            </button>
+        </div>
+        <div class="px-5">
+            <button routerLink="/animals/{{ myAnimal.id }}/update" class="btn btn-outline-info">
+                Modifier
+            </button>
+        </div>
+        <div class="pl-5">
+            <button routerLink="/delete/{{ myAnimal.id }}" class="btn btn-outline-danger">
+                Supprimer
+            </button>
+        </div>
+        
         <br>
     </div>
 
@@ -64,9 +77,13 @@
                 </tr>
             </tbody>
         </table>
+        <div class="pb-2">
+            <button routerLink="/adoptives/{{ myAnimal.adoption.adoptiveFamily.id }}/update" class="btn btn-outline-info">
+                Modifier les coordonnées
+            </button>
+        </div>
+
     </div>
-
-
 
     <div class="container-fluid pt-3" *ngIf="myAnimal.hostFamily">
         <h4 class="curv-perso"><u>Famille d'acceuil :</u></h4>
@@ -90,6 +107,11 @@
                 </tr>
             </tbody>
         </table>
+        <div class="pb-2">
+            <button routerLink="/hosts/{{ myAnimal.hostFamily.id }}/update" class="btn btn-outline-info">
+                Modifier les coordonnées
+            </button>
+        </div>
     </div>
 
     <br>
@@ -113,8 +135,8 @@
 
     </div>
 
-    <div class="container-fluid">
-        <button routerLink="/care/{{ myAnimal.id }}" class="btn btn-outline-secondary float-left">
+    <div *ngIf="!myAnimal.adopted" class="container-fluid">
+        <button routerLink="/care/{{ myAnimal.id }}/add" class="btn btn-outline-secondary float-left">
             Ajouter un soin
         </button>
     </div>

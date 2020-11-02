@@ -1,0 +1,208 @@
+<div class="container">
+    <div  *ngIf="animalForForm | async; else formForAdd">
+
+        <!-- Fait référence au nom définie dans le fichier.ts-->
+        <form [formGroup]="animalFormGroup" (ngSubmit)="onSubmit()" autocomplete="off">
+            <div class="form-area ">
+                <div class="form-group centered pt-4">
+                    <div class="col-md-8 border rounded border-dark">
+                        <h3 class=" centered curv-perso py-4"><u>Modification de l'animal :</u></h3>
+                        <div class="row">
+                            <div class="col">
+                                <label>Nom :</label>
+                            </div>
+                            <div class="col">
+                                <label>Sexe :</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control" formControlName="name">
+                            </div>
+                            <div class="col">
+                                <div class="form-check form-check-inline pt-1">
+                                    <input class="form-check-input" type="radio" formControlName="sexe" id="male"
+                                        value="Male">
+                                    <label class="form-check-label" for="male">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" formControlName="sexe" id="femelle"
+                                        value="Femelle">
+                                    <label class="form-check-label" for="femelle">Femelle</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" formControlName="sexe" id="ind"
+                                        value="Indéterminé">
+                                    <label class="form-check-label" for="ind">Indéterminé</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pt-4">
+                            <div class="col">
+                                <label>Espèce :</label>
+                            </div>
+                            <div class="col">
+                                <label>Race :</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <select formControlName="species" class="py-1">
+                                    <option value="Chat">Chat</option>
+                                    <option value="Chien">Chien</option>
+                                    <option value="NAC_Rongeur">Rongeur</option>
+                                    <option value="NAC_Reptile">Reptile</option>
+                                    <option value="Autre">Autre</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" formControlName="race">
+                            </div>
+                        </div>
+                        <div class="row pt-4">
+                            <div class="col">
+                                <label>Date de naissance :</label>
+                            </div>
+                            <div class="col">
+                                <label>Date d'arrivée :</label>
+                            </div>
+                        </div>
+                        <div class="row pb-4">
+                            <div class="col">
+                                <input type="date" class="form-control" formControlName="birthDate">
+                            </div>
+                            <div class="col">
+                                <input type="date" class="form-control" formControlName="arrivalDate">
+                            </div>
+                        </div>
+
+                        <!-- submit button -->
+
+                        <div class="text-center py-4">
+                            <button type="submit"  class="btn btn-info">Modifier</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div *ngIf="myAnimal.hostFamily" class="form-group centered pt-4">
+                    <div class="col-md-8 border rounded border-dark">
+                        <h3 class=" centered curv-perso py-4"><u>Changement de famille d'accueil :</u></h3>
+                        <div class="text-center py-4">
+                            <button routerLink="/update/{{ myAnimal.id }}/host" class="btn btn-info">Changer</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+    <ng-template #formForAdd>
+       <!-- Fait référence au nom définie dans le fichier.ts-->
+    <form [formGroup]="animalFormGroup" (ngSubmit)="onSubmit()" autocomplete="off">
+
+        <div class="form-area ">
+
+            <div class="form-group centered pt-4">
+                <div class="col-md-8 border rounded border-dark">
+                    <h3 class=" centered curv-perso py-4"><u>Nouveau pensionnaire :</u></h3>
+                    <div class="row">
+                        <div class="col">
+                            <label>Nom :</label>
+                        </div>
+                        <div class="col">
+                            <label>Sexe :</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" class="form-control" formControlName="name" placeholder="Felix">
+                        </div>
+                        <div class="col">
+                            <div class="form-check form-check-inline pt-1">
+                                <input class="form-check-input" type="radio" formControlName="sexe" id="male"
+                                    value="Male">
+                                <label class="form-check-label" for="male">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" formControlName="sexe" id="femelle"
+                                    value="Femelle">
+                                <label class="form-check-label" for="femelle">Femelle</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" formControlName="sexe" id="ind"
+                                    value="Indéterminé">
+                                <label class="form-check-label" for="ind">Indéterminé</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pt-4">
+                        <div class="col">
+                            <label>Espèce :</label>
+                        </div>
+                        <div class="col">
+                            <label>Race :</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <select formControlName="species" class="py-1">
+                                <option value="Chat">Chat</option>
+                                <option value="Chien">Chien</option>
+                                <option value="NAC_Rongeur">Rongeur</option>
+                                <option value="NAC_Reptile">Reptile</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" formControlName="race" placeholder="Bengal">
+                        </div>
+                    </div>
+                    <div class="row pt-4">
+                        <div class="col">
+                            <label>Date de naissance :</label>
+                        </div>
+                        <div class="col">
+                            <label>Date d'arrivée :</label>
+                        </div>
+                    </div>
+                    <div class="row pb-4">
+                        <div class="col">
+                            <input type="date" class="form-control" formControlName="birthDate"
+                                placeholder="jour/mois/année">
+                        </div>
+                        <div class="col">
+                            <input type="date" class="form-control" formControlName="arrivalDate"
+                                placeholder="jour/mois/année">
+                        </div>
+                    </div>
+
+                    <!-- submit button -->
+
+                    <div class="text-center py-4">
+                        <button type="submit" class="btn btn-info" [disabled]="!animalFormGroup.valid">Ajouter</button>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="centered" *ngIf="!animalFormGroup.valid">
+                <div class="col-md-8">
+                    <h3 class="curv-perso pt-3">Instructions pour compléter ce formulaire: </h3>
+                    <ul>
+                        <li>Tous les champs doivent être complétés</li>
+                        <li>Le nom doit commencer par une majuscule</li>
+                        <li>Le nom doit faire entre 3 et 15 caractères sans espace</li>
+                        <li>Le nom doit être unique</li>
+                        <li>Les dates doivent être au format jour/mois/année </li>
+                        <li>La date de naissance doit être inférieure à la date du jour</li>
+                        <li>La date d'arrivée doit être inférieure à la date du jour</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+    </ng-template>
+</div>

@@ -18,9 +18,19 @@ export class HostFamilyService {
     return this.httpClient.get<HostFamily[]>(this.baseUrl);
   }
 
+  getFamilyById(id: string): Observable<HostFamily> {
+    const url = `${this.baseUrl}/${id}`;
+    return this.httpClient.get<HostFamily>(url);
+  }
+
   createHostFamily(hostFamily: object): Observable<object> {
     return this.httpClient.post(this.baseUrl, hostFamily).pipe(catchError(this.handleError));
   }
+
+  updateHostFamily(hostFamily: object): Observable<object> {
+    return this.httpClient.put(this.baseUrl, hostFamily).pipe(catchError(this.handleError));
+  }
+
 
   handleError(error: HttpErrorResponse) {
     let errorMessage = "";

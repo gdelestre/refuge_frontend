@@ -6,13 +6,18 @@
         <ul *ngFor="let tempAdoption of myAdoptions" class="pb-3">
             <div *ngFor="let tempAnimal of myAdoptedAnimals">
                 <div *ngIf="tempAnimal.adoption.id === tempAdoption.id">
-                    <li>
-                        <h5>
-                            Adoption de {{ tempAnimal.name }} le
-                                {{tempAdoption.adoptionDate | date: 'dd/MM/yyyy'}}
-                                par M./Mme {{tempAdoption.adoptiveFamily.lastName.toUpperCase() }}
-                                {{ tempAdoption.adoptiveFamily.firstName}}.
-                        </h5>
+                    <li> 
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h5>
+                                    Adoption de {{ tempAnimal.name }} le
+                                        {{tempAdoption.adoptionDate | date: 'dd/MM/yyyy'}}
+                                        par M./Mme {{tempAdoption.adoptiveFamily.lastName.toUpperCase() }}
+                                        {{ tempAdoption.adoptiveFamily.firstName}}.
+                                </h5>
+                            </div>
+                        </div>
+                        
                     </li>
                     <div>
                         <div class="pl-4">

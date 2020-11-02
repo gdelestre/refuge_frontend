@@ -5,30 +5,50 @@
 
     <div class="container-fluid pt-4" *ngFor="let tempVeterinary of myVeterinaries">
         <h4><u>Dr. {{tempVeterinary.lastName.toUpperCase() }} {{ tempVeterinary.firstName}}</u></h4>
-        <p>
-            <span class="ml-4">Adresse: {{ tempVeterinary.streetNumber }} {{ tempVeterinary.streetName }}
-                {{ tempVeterinary.zipCode }} {{ tempVeterinary.city }}</span>
-            <span class="ml-5"></span>
-            <span class="ml-5">Téléphone:
-                {{tempVeterinary.phoneNumber |slice:0:2 }}-{{tempVeterinary.phoneNumber |slice:2:4 }}-{{ tempVeterinary.phoneNumber |slice:4:6 }}-{{ tempVeterinary.phoneNumber |slice:6:8 }}-{{ tempVeterinary.phoneNumber |slice:8:10 }}</span>
-        </p>
+        <div class="row pb-4">
+            <div class="col-md-4">
+                Adresse: {{ tempVeterinary.streetNumber }} {{ tempVeterinary.streetName }}
+                {{ tempVeterinary.zipCode }} {{ tempVeterinary.city }}
+            </div>
+            <div class="col-md-3">
+                Téléphone:
+                {{tempVeterinary.phoneNumber |slice:0:2 }}-{{tempVeterinary.phoneNumber |slice:2:4 }}-{{ tempVeterinary.phoneNumber |slice:4:6 }}-{{ tempVeterinary.phoneNumber |slice:6:8 }}-{{ tempVeterinary.phoneNumber |slice:8:10 }}
+            </div>
+            <div class="col-md-3">
+                <button routerLink="/veterinaries/{{ tempVeterinary.id }}/update" class="btn btn-outline-info">
+                    Modifier les coordonnées
+                </button>
+            </div>
+        </div>
 
 
         <table class="table">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">Examen</th>
+                    <th scope="col">Motif</th>
                     <th scope="col">Date</th>
                     <th scope="col">Heure</th>
                     <th scope="col">Nom Animal</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody *ngFor="let tempVetCare of tempVeterinary.veterinaryCares | orderByDate:'examenDate'">
-                <tr *ngIf="(tempVetCare.examenDate | date: 'yyyy/MM/dd') > (now| date: 'yyyy/MM/dd')">
+            <tbody *ngFor="let tempVetCare of myVeterinaryCares">
+                <tr *ngIf= "tempVetCare.veterinary.id === tempVeterinary.id">
                     <td> {{ tempVetCare.examen }}</td>
                     <td> {{ tempVetCare.examenDate | date: 'dd/MM/yyyy'}}</td>
                     <td> {{ tempVetCare.examenTime }}</td>
                     <td> {{ tempVetCare.animal.name }}</td>
+                    <td>
+                        <button routerLink="/cares/{{ tempVetCare.id }}/update/{{ tempVetCare.animal.id }}" class="btn btn-outline-info">
+                            Modifier le rdv
+                        </button>
+                    </td>
+                    <td>
+                        <button routerLink="/cares/{{ tempVetCare.id }}/delete" class="btn btn-outline-danger">
+                            Annuler le rdv
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>

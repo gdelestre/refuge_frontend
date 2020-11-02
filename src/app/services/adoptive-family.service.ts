@@ -31,6 +31,10 @@ export class AdoptiveFamilyService {
     return this.httpClient.post(this.baseUrl, adoptiveFamily).pipe(catchError(this.handleError));
   }
 
+  updateAdoptiveFamily(adoptiveFamily: object): Observable<object> {
+    return this.httpClient.put(this.baseUrl, adoptiveFamily).pipe(catchError(this.handleError));
+  }
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = "";
     if (error.status == 403) {

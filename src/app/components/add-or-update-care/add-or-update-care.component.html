@@ -1,0 +1,115 @@
+<div class="container-fluid">
+    <div *ngIf="careForForm | async; else addForm">
+        <!-- Fait référence au nom définie dans le fichier.ts-->
+        <form [formGroup]="careFormGroup" (ngSubmit)="onSubmit()" autocomplete="off">
+            <div class="form-area ">
+                <div class="form-group centered pt-4">
+                    <div class="col-md-7 border rounded border-dark">
+
+                        <h4 class="py-4 centered curv-perso"><u> {{title}} {{myAnimal.name}}</u></h4>
+                        <p><u>Choisir un vétérinaire:</u> </p>
+
+                        <div *ngFor="let tempVet of allVeterinaries" class="form-check form-check-inline py-3">
+                            <input class="form-check-input pl-2" formControlName="veterinaryId" type="radio"
+                                id="{{ tempVet.id }}" value="{{ tempVet.id }}">
+
+                            <label class="form-check-label px-2" for="{{ tempVet.id }}">
+                                Dr. {{tempVet.lastName.toUpperCase()}} {{tempVet.firstName}} <br> Téléphone:
+                                {{tempVet.phoneNumber}}
+                            </label>
+                        </div>
+                        <div class=" row py-3">
+                            <div class="col-md-2">
+                                Motif :
+                            </div>
+                            <div class="col-md-9 px-0">
+                                <input formControlName="examen" type="text" class="col-md-9">
+                            </div>
+                        </div>
+
+                        <div class="row pl-3 py-3">
+                            <span>Date d'examen : </span>
+                            <span class="input-space px-3">
+                                <input type="date" class="form-control" formControlName="examenDate">
+                            </span>
+
+                            <span class="pl-4"> Heure : </span>
+                            <span class="input-space px-3">
+                                <input type="time" class="form-control" formControlName="examenTime">
+                            </span>
+
+                        </div>
+
+                        <div class="text-center py-4">
+                            <button type="submit" class="btn btn-info">Valider</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <ng-template #addForm>
+        <!-- Fait référence au nom définie dans le fichier.ts-->
+        <form [formGroup]="careFormGroup" (ngSubmit)="onSubmit()" autocomplete="off">
+            <div class="form-area ">
+                <div class="form-group centered pt-4">
+                    <div class="col-md-7 border rounded border-dark">
+
+                        <h4 class="py-4 centered curv-perso"><u> {{title}} {{myAnimal.name}}</u></h4>
+                        <p><u>Choisir un vétérinaire:</u> </p>
+
+                        <div *ngFor="let tempVet of allVeterinaries" class="form-check form-check-inline py-3">
+                            <input class="form-check-input pl-4" formControlName="veterinaryId" type="radio"
+                                id="{{ tempVet.id }}" value="{{ tempVet.id }}">
+                            <label class="form-check-label px-2" for="{{ tempVet.id }}">
+                                Dr. {{tempVet.lastName.toUpperCase()}} {{tempVet.firstName}} <br> Téléphone:
+                                {{tempVet.phoneNumber}}
+                            </label>
+                        </div>
+                        <div class=" row py-3">
+                            <div class="col-md-2">
+                                Motif :
+                            </div>
+                            <div class="col-md-9 px-0">
+                                <input formControlName="examen" type="text" class="col-md-9">
+                            </div>
+                        </div>
+
+                        <div class="row pl-3 py-3">
+                            <span>Date d'examen : </span>
+                            <span class="input-space px-3">
+                                <input type="date" placeholder="jour/mois/année" class="form-control"
+                                    formControlName="examenDate">
+                            </span>
+
+                            <span class="pl-4"> Heure : </span>
+                            <span class="input-space px-3">
+                                <input type="time" class="form-control" formControlName="examenTime">
+                            </span>
+
+                        </div>
+
+                        <div class="text-center py-4">
+                            <button type="submit" class="btn btn-info"
+                                [disabled]="!careFormGroup.valid">Valider</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="!careFormGroup.valid">
+                <div class="form-group centered pt-4">
+                    <div class="col-md-7 ">
+                        <h3 class="curv-perso pt-3">Instructions pour compléter ce formulaire: </h3>
+                        <ul>
+                            <li>Tous les champs doivent être complétés</li>
+                            <li>Les dates d'examen doit être supérieure ou égale à la date du jour</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </ng-template>
+
+</div>

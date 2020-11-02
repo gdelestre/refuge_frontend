@@ -1,0 +1,79 @@
+<div class="container">
+    <!-- Fait référence au nom définie dans le fichier.ts-->
+    <form [formGroup]="familyFormGroup" (ngSubmit)="onSubmit()" autocomplete="off" *ngIf="updatedFamily | async">
+
+        <div class="form-area">
+            <div class="form-group centered pt-4">
+                <div class="col-md-8 border rounded border-dark">
+
+                    <h3 class="centered curv-perso py-4"><u>Mise à jour de la personne :</u></h3>
+                    <div class="row">
+                        <div class="col">
+                            <label>Nom :</label>
+                        </div>
+                        <div class="col">
+                            <label>Prénom :</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" class="form-control" formControlName="lastName">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" formControlName="firstName">
+                        </div>
+                    </div>
+                    <div class="row pt-4">
+                        <div class="col">
+                            <label>Numéro de rue :</label>
+                        </div>
+                        <div class="col">
+                            <label>Nom de rue:</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="number" class="form-control" formControlName="streetNumber">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" formControlName="streetName">
+                        </div>
+                    </div>
+                    <div class="row pt-4">
+                        <div class="col">
+                            <label>Code Postal :</label>
+                        </div>
+                        <div class="col">
+                            <label>Ville:</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="number" class="form-control" formControlName="zipCode">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" formControlName="city">
+                        </div>
+                    </div>
+                    <div class="row pt-4">
+                        <div class="col">
+                            <label>Numéro de téléphone :</label>
+                        </div>
+                    </div>
+                    <div class="row pb-4">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" formControlName="phoneNumber">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- submit button -->
+
+        <div class="text-center py-4">
+            <button type="submit" class="btn btn-info">Modifier</button>
+        </div>
+    </form>
+
+</div>

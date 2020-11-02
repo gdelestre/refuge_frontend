@@ -39,19 +39,19 @@ export class AnimalService {
   }
 
   createAnimal(animal: object): Observable<object> {
-    return this.httpClient.post(this.baseUrl, animal).pipe(catchError(this.handleError));;
+    return this.httpClient.post(this.baseUrl, animal).pipe(catchError(this.handleError));
   }
 
   updateAnimal(animal: object): Observable<object> {
-    return this.httpClient.put(this.baseUrl, animal);
+    return this.httpClient.put(this.baseUrl, animal).pipe(catchError(this.handleError));
   } 
 
   handleError(error: HttpErrorResponse) {
     let errorMessage = "";
     if (error.status == 403) {
-      errorMessage = `Ajout impossible! Ce nom est déjà utilisé.`;
+      errorMessage = `Ajout ou Modification impossible! Ce nom est déjà utilisé.`;
     }else{
-      errorMessage = `Erreur. L'ajout de l'animal n'a pas pu être effectué.`;
+      errorMessage = `Erreur. L'ajout ou la modification de l'animal n'a pas pu être effectué(e).`;
     }
     window.alert(errorMessage);
     return throwError(errorMessage);

@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~9.1.0",
+    "@angular/cdk": "^9.2.4",
     "@angular/common": "~9.1.0",
     "@angular/compiler": "~9.1.0",
     "@angular/core": "~9.1.0",
@@ -20,8 +21,11 @@
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
     "bootstrap": "^4.5.2",
+    "jquery": "^3.5.1",
     "ngx-bootstrap": "^6.1.0",
+    "ngx-ui-switch": "^10.0.2",
     "rxjs": "~6.5.4",
+    "save": "^2.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },
