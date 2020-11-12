@@ -50,4 +50,10 @@ export class VeterinaryCareService {
     return throwError(errorMessage);
   }
 
+  deleteCare(id: string){
+    const url = `${this.baseUrl}/care/${id}`;
+    return this.httpClient.delete<VeterinaryCare>(url);
+  }
+
+
 }

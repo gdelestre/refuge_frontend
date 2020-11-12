@@ -15,7 +15,8 @@ export class AddVeterinaryComponent implements OnInit {
   newVet: Veterinary = new Veterinary();
 
   constructor(private formBuilder: FormBuilder, private veterinaryService: VeterinaryService,
-    private router:Router) { }
+    private router:Router) {
+     }
 
   ngOnInit(): void {
     this.veterinaryFormGroup = this.formBuilder.group({
@@ -44,7 +45,9 @@ export class AddVeterinaryComponent implements OnInit {
   onSubmit() {
     this.saveVeterinary();
     this.veterinaryFormGroup.reset();
-    this.router.navigate(['/cares']);
+    this.router.navigate(['/cares']).then(() => {
+      window.location.reload();
+    });
   }
 
   saveVeterinary() {

@@ -17,6 +17,8 @@ import { UiSwitchModule } from 'ngx-ui-switch';
 import { UpdateFamilyComponent } from './components/update-family/update-family.component';
 import { AddOrUpdateAnimalComponent } from './components/add-or-update-animal/add-or-update-animal.component';
 import { AddOrUpdateCareComponent } from './components/add-or-update-care/add-or-update-care.component';
+import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { AddOrUpdateCareComponent } from './components/add-or-update-care/add-or
     AddHostFamilyComponent,
     UpdateFamilyComponent,
     AddOrUpdateAnimalComponent,
-    AddOrUpdateCareComponent
+    AddOrUpdateCareComponent,
+    ConfirmModalComponent
   ],
   imports: [
     HttpClientModule,
@@ -40,6 +43,8 @@ import { AddOrUpdateCareComponent } from './components/add-or-update-care/add-or
     AppRoutingModule,
     ReactiveFormsModule,
     UiSwitchModule,
+    ModalModule.forRoot(),
+    
     
   ],
   providers: [],

@@ -26,7 +26,6 @@ export class AdoptiveFamilyService {
     return this.httpClient.get<AdoptiveFamily>(url);
   }
 
-
   createAdoptiveFamily(adoptiveFamily: object): Observable<object> {
     return this.httpClient.post(this.baseUrl, adoptiveFamily).pipe(catchError(this.handleError));
   }
@@ -38,7 +37,7 @@ export class AdoptiveFamilyService {
   handleError(error: HttpErrorResponse) {
     let errorMessage = "";
     if (error.status == 403) {
-      errorMessage = `Ajout impossible! Ce numéro de téléphone est déjà utilisé.`;
+      errorMessage = `Ajout ou modification impossible! Ce numéro de téléphone est déjà utilisé.`;
     }else{
       errorMessage = `Erreur. L'ajout n'a pas pu être effectué.`;
     }

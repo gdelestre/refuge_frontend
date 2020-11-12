@@ -18,12 +18,12 @@ export class AnimalService {
     return this.httpClient.get<Animal[]>(this.baseUrl);
   }
 
-  getAnimalsBySpecies(species:String): Observable<Animal[]>{
+  getAnimalsBySpecies(species:string): Observable<Animal[]>{
     const url = `${this.baseUrl}/species/${species}`;
     return this.httpClient.get<Animal[]>(url);
   }
 
-  getOneAnimal(id: String): Observable<Animal>{
+  getOneAnimal(id: string): Observable<Animal>{
     const url = `${this.baseUrl}/${id}`;
     return this.httpClient.get<Animal>(url);
   }
@@ -57,6 +57,10 @@ export class AnimalService {
     return throwError(errorMessage);
   }
 
+  deleteAnimal(id: string){
+    const url = `${this.baseUrl}/${id}`;
+    return this.httpClient.delete<Animal>(url);
+  }
 }
 
 

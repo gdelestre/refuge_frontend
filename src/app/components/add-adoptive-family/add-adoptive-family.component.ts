@@ -26,10 +26,10 @@ export class AddAdoptiveFamilyComponent implements OnInit {
   selectedOption: string;
   selectedId: string = "";
 
-
   constructor(private formBuilder: FormBuilder, private animalService: AnimalService,
     private adoptiveService: AdoptiveFamilyService, private adoptionService: AdoptAnimalService,
-    private route: ActivatedRoute, private router: Router) { }
+    private route: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.getAnimal();
@@ -109,12 +109,16 @@ export class AddAdoptiveFamilyComponent implements OnInit {
 
   onSubmitNewFamily() {
     this.saveAdoptiveFamily();
-    this.adoptWithNewFamilyFormGroup.reset();
+    this.router.navigate(['/adoptives']).then(() => {
+      window.location.reload();
+    });
   }
 
   onSubmitExistingFamily() {
     this.saveAdoption();
-    this.adoptWithExistingFamilyFormGroup.reset();
+    this.router.navigate(['/adoptives']).then(() => {
+      window.location.reload();
+    });
   }
 
   saveAdoptiveFamily() {
@@ -127,12 +131,15 @@ export class AddAdoptiveFamilyComponent implements OnInit {
     this.myAdoptiveFamily.streetNumber = this.adoptWithNewFamilyFormGroup.get('adoptiveFamily').value.streetNumber;
     this.myAdoptiveFamily.phoneNumber = this.adoptWithNewFamilyFormGroup.get('adoptiveFamily').value.phoneNumber;
 
-    this.adoptiveService.createAdoptiveFamily(this.myAdoptiveFamily)
-      .subscribe(data => console.log(data), error => console.log(error));
-
-    this.saveNewAdoption(this.adoptWithNewFamilyFormGroup);
+    this.adoptiveService.getAdoptiveFamilyByPhoneNumber(this.myAdoptiveFamily.phoneNumber)
+      .subscribe(family => {
+        if (family) {
+          window.alert("Ce numéro de téléphone est déjà utilisé.");
+        } else {
+          this.saveNewAdoption(this.adoptWithNewFamilyFormGroup);
+        }
+      });
   }
-
 
   saveAdoption() {
     this.saveNewAdoption(this.adoptWithExistingFamilyFormGroup);
@@ -151,19 +158,15 @@ export class AddAdoptiveFamilyComponent implements OnInit {
     if (this.myAnimal.hostFamily) {
       this.myAnimal.hostFamily = null;
     }
-
     this.newAdoption.adoptedAnimal = this.myAnimal;
-
     this.save();
   }
 
-
   save() {
-
-    this.animalService.updateAnimal(this.myAnimal)
+    this.adoptionService.createAdoption(this.newAdoption)
       .subscribe(data => console.log(data), error => console.log(error));
 
-    this.adoptionService.createAdoption(this.newAdoption)
+    this.animalService.updateAnimal(this.myAnimal)
       .subscribe(data => console.log(data), error => console.log(error));
 
     this.newAdoption = new AdoptAnimal();

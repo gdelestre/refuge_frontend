@@ -3,6 +3,9 @@ import { HostFamily } from 'src/app/classes/host-family';
 import { HostFamilyService } from 'src/app/services/host-family.service';
 import { Animal } from 'src/app/classes/animal';
 import { AnimalService } from 'src/app/services/animal.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-host-family',
@@ -15,7 +18,11 @@ export class HostFamilyComponent implements OnInit {
   myAnimalsInHostFamily: Animal[] = [];
   hostFamily: HostFamily;
 
-  constructor(private hostFamilyService: HostFamilyService, private animalService: AnimalService) { }
+  //Modal pour confirmation
+  modalRef: BsModalRef;
+
+  constructor(private hostFamilyService: HostFamilyService, private animalService: AnimalService,
+    private modalService: BsModalService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllHostFamilies();
@@ -23,7 +30,7 @@ export class HostFamilyComponent implements OnInit {
   }
 
   getAllHostFamilies() {
-    this.hostFamilyService.getAllHostFamily().subscribe(
+    this.hostFamilyService.getAllHostFamilies().subscribe(
       data => this.myHostFamilies = data
     );
   }
@@ -41,7 +48,6 @@ export class HostFamilyComponent implements OnInit {
     } else {
       this.hostFamily.free = true;
     }
-
     this.updateFamily();
   }
 
@@ -50,5 +56,23 @@ export class HostFamilyComponent implements OnInit {
       .subscribe(data => console.log(data), error => console.log(error));
   }
 
+  deleteFamily(family: HostFamily) {
+    this.modalRef = this.modalService.show(ConfirmModalComponent, {
+      initialState: {
+        title: "Confirmation suppression",
+        prompt: `Voulez-vous vraiment supprimer la famille ${family.lastName.toUpperCase()}?`,
+        callback: (result) => {
+          if (result == 'oui') {
+            this.hostFamilyService.deleteFamily(family.id)
+              .subscribe(data => console.log(data), error => console.log(error));
+
+            this.router.navigate(['/hosts']).then(() => {
+              window.location.reload();
+            });
+          }
+        }
+      }
+    });
+  }
 
 }

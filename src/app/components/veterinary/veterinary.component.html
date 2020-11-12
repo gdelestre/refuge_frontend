@@ -19,8 +19,12 @@
                     Modifier les coordonnées
                 </button>
             </div>
+            <div class="col-md-2">
+                <button class="btn btn-outline-danger" (click)="deleteVeterinary(tempVeterinary)">
+                    Supprimer
+                </button>
+            </div>
         </div>
-
 
         <table class="table">
             <thead class="thead-light">
@@ -34,18 +38,19 @@
                 </tr>
             </thead>
             <tbody *ngFor="let tempVetCare of myVeterinaryCares">
-                <tr *ngIf= "tempVetCare.veterinary.id === tempVeterinary.id">
+                <tr *ngIf="tempVetCare.veterinary.id === tempVeterinary.id">
                     <td> {{ tempVetCare.examen }}</td>
                     <td> {{ tempVetCare.examenDate | date: 'dd/MM/yyyy'}}</td>
                     <td> {{ tempVetCare.examenTime }}</td>
                     <td> {{ tempVetCare.animal.name }}</td>
                     <td>
-                        <button routerLink="/cares/{{ tempVetCare.id }}/update/{{ tempVetCare.animal.id }}" class="btn btn-outline-info">
+                        <button routerLink="/cares/{{ tempVetCare.id }}/update/{{ tempVetCare.animal.id }}"
+                            class="btn btn-outline-info">
                             Modifier le rdv
                         </button>
                     </td>
                     <td>
-                        <button routerLink="/cares/{{ tempVetCare.id }}/delete" class="btn btn-outline-danger">
+                        <button class="btn btn-outline-danger" (click)="deleteCare(tempVetCare)">
                             Annuler le rdv
                         </button>
                     </td>

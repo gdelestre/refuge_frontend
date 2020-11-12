@@ -10,11 +10,9 @@
                         <h5 class="pl-2">M./Mme {{tempHost.lastName.toUpperCase() }} {{ tempHost.firstName}}</h5>
                     </div>
                     <div>
-                        <ui-switch checkedLabel="Disponible!" uncheckedLabel="Plus de place"
-                        uncheckedTextColor="red"
-                        [checked]= tempHost.free
-                        (changeEvent)="onChangeEvent(tempHost)" ></ui-switch>
-                      </div>
+                        <ui-switch checkedLabel="Disponible!" uncheckedLabel="Plus de place" uncheckedTextColor="red"
+                            [checked]=tempHost.free (changeEvent)="onChangeEvent(tempHost)"></ui-switch>
+                    </div>
                 </div>
             </li>
             <div *ngIf="tempHost.free">
@@ -29,6 +27,11 @@
                     <div class="col-1">
                         <button routerLink="/hosts/{{ tempHost.id }}/update" class="btn btn-outline-info">
                             Modifier
+                        </button>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-outline-danger" (click)="deleteFamily(tempHost)">
+                            Supprimer
                         </button>
                     </div>
                 </div>
@@ -65,11 +68,9 @@
                         <h5 class="pl-2">M./Mme {{tempHost.lastName.toUpperCase() }} {{ tempHost.firstName}}</h5>
                     </div>
                     <div>
-                        <ui-switch checkedLabel="Disponible!" uncheckedLabel="Plus de place"
-                        uncheckedTextColor="red"
-                        [checked]= tempHost.free
-                        (changeEvent)="onChangeEvent(tempHost)" ></ui-switch>
-                      </div>
+                        <ui-switch checkedLabel="Disponible!" uncheckedLabel="Plus de place" uncheckedTextColor="red"
+                            [checked]=tempHost.free (changeEvent)="onChangeEvent(tempHost)"></ui-switch>
+                    </div>
                 </div>
             </li>
             <div *ngIf="!tempHost.free">
@@ -84,6 +85,11 @@
                     <div class="col-1">
                         <button routerLink="/hosts/{{ tempHost.id }}/update" class="btn btn-outline-info">
                             Modifier
+                        </button>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-outline-danger" (click)="deleteFamily(tempHost)">
+                            Supprimer
                         </button>
                     </div>
                 </div>

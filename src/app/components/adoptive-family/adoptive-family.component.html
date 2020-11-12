@@ -6,37 +6,43 @@
         <ul *ngFor="let tempAdoption of myAdoptions" class="pb-3">
             <div *ngFor="let tempAnimal of myAdoptedAnimals">
                 <div *ngIf="tempAnimal.adoption.id === tempAdoption.id">
-                    <li> 
+                    <li>
                         <div class="row">
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 <h5>
                                     Adoption de {{ tempAnimal.name }} le
-                                        {{tempAdoption.adoptionDate | date: 'dd/MM/yyyy'}}
-                                        par M./Mme {{tempAdoption.adoptiveFamily.lastName.toUpperCase() }}
-                                        {{ tempAdoption.adoptiveFamily.firstName}}.
+                                    {{tempAdoption.adoptionDate | date: 'dd/MM/yyyy'}}
+                                    par M./Mme {{tempAdoption.adoptiveFamily.lastName.toUpperCase() }}
+                                    {{ tempAdoption.adoptiveFamily.firstName}}.
                                 </h5>
                             </div>
                         </div>
-                        
+
                     </li>
                     <div>
-                        <div class="pl-4">
-                            <span class="pr-4">
-                                Adresse: {{ tempAdoption.adoptiveFamily.streetNumber }}
-                                {{ tempAdoption.adoptiveFamily.streetName }}
-                                {{ tempAdoption.adoptiveFamily.zipCode }} {{ tempAdoption.adoptiveFamily.city }}
-                            </span>
-                            <span class="px-4">Téléphone:
-                                {{tempAdoption.adoptiveFamily.phoneNumber |slice:0:2 }}-{{tempAdoption.adoptiveFamily.phoneNumber |slice:2:4 }}-{{ tempAdoption.adoptiveFamily.phoneNumber |slice:4:6 }}-{{ tempAdoption.adoptiveFamily.phoneNumber |slice:6:8 }}-{{ tempAdoption.adoptiveFamily.phoneNumber |slice:8:10 }}
-                            </span>
-                            <span class="px-4">
-                                <button>Valider l'adoption</button>
-                            </span>
-                            <span class="px-4">
-                                <button>Annuler l'adoption</button>
-                            </span>
-                        </div>
+                        <div class="row">
+                            <div class="col-md-7 pl-4">
+                                <span class="pr-4">
+                                    Adresse: {{ tempAdoption.adoptiveFamily.streetNumber }}
+                                    {{ tempAdoption.adoptiveFamily.streetName }}
+                                    {{ tempAdoption.adoptiveFamily.zipCode }} {{ tempAdoption.adoptiveFamily.city }}
+                                </span>
+                                <span class="px-4">Téléphone:
+                                    {{tempAdoption.adoptiveFamily.phoneNumber |slice:0:2 }}-{{tempAdoption.adoptiveFamily.phoneNumber |slice:2:4 }}-{{ tempAdoption.adoptiveFamily.phoneNumber |slice:4:6 }}-{{ tempAdoption.adoptiveFamily.phoneNumber |slice:6:8 }}-{{ tempAdoption.adoptiveFamily.phoneNumber |slice:8:10 }}
+                                </span>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-outline-success" (click)="validateAdoption(tempAnimal)">
+                                    Valider l'adoption
+                                </button>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-outline-danger" (click)="cancelAdoption(tempAnimal)">
+                                    Annuler l'adoption
+                                </button>
+                            </div>
 
+                        </div>
                     </div>
 
                 </div>

@@ -31,7 +31,8 @@ export class UpdateFamilyComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private hostFamilyService: HostFamilyService,
     private adoptiveFamilyService: AdoptiveFamilyService, private veterinaryService: VeterinaryService,
-    private route: ActivatedRoute, private router: Router) { }
+    private route: ActivatedRoute, private router: Router) {
+     }
 
   ngOnInit(): void {
     this.getPerson();
@@ -45,6 +46,7 @@ export class UpdateFamilyComponent implements OnInit {
       phoneNumber: ['',]
     });
   }
+
 
   getPerson() {
     if (this.isHost) {
@@ -84,7 +86,9 @@ export class UpdateFamilyComponent implements OnInit {
     if (this.isVeterinary) {
       this.updateFamily(this.myVeterinary);
     }
-    this.router.navigate(['/animals']);
+    this.router.navigate(['/animals']).then(() => {
+      window.location.reload();
+    });
   }
 
   updateFamily(family: Person) {
@@ -133,7 +137,6 @@ export class UpdateFamilyComponent implements OnInit {
   }
 
   update() {
-
     if (this.isHost) {
       this.hostFamilyService.updateHostFamily(this.myHostFamily)
         .subscribe(data => console.log(data), error => console.log(error));

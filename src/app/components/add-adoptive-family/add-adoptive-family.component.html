@@ -11,16 +11,15 @@
     <label class="form-check-label" for="no">NON</label>
   </div>
 
-
   <div *ngIf="isSelected('Yes')" class="pt-4">
 
     <form [formGroup]="adoptWithExistingFamilyFormGroup" (ngSubmit)="onSubmitExistingFamily()" autocomplete="off">
 
       <div formGroupName="adoptAnimal" class="form-area">
 
-        <div *ngFor="let tempFamily of allAdoptivesFamilies" class="form-check form-check-inline py-3">
-          <input class="form-check-input pl-4" (click)="getFamily(tempFamily)" formControlName="adoptiveFamilyId" type="radio" id="{{ tempFamily.id }}"
-            value="{{ tempFamily.id }}">
+        <div *ngFor="let tempFamily of allAdoptivesFamilies" class="form-check form-check-inline py-3 pl-4">
+          <input class="form-check-input pl-4" (click)="getFamily(tempFamily)" formControlName="adoptiveFamilyId"
+            type="radio" id="{{ tempFamily.id }}" value="{{ tempFamily.id }}">
           <label class="form-check-label px-2" for="{{ tempFamily.id }}">
             Mr/Mme {{tempFamily.lastName.toUpperCase()}} {{tempFamily.firstName}} <br> Téléphone:
             {{tempFamily.phoneNumber}}
@@ -37,7 +36,6 @@
         </div>
 
       </div>
-
 
       <!-- submit button -->
 
@@ -58,7 +56,7 @@
         <div class="form-group centered pt-4">
           <div class="col-md-8 border rounded border-dark">
 
-            <h3 class="centered curv-perso py-4"><u>Nouveau adoptant :</u></h3>
+            <h3 class="centered curv-perso py-4"><u>Nouvelle famille :</u></h3>
             <div class="row">
               <div class="col">
                 <label>Nom :</label>
@@ -136,7 +134,6 @@
         <button type="submit" class="btn btn-info" [disabled]="!adoptWithNewFamilyFormGroup.valid">Ajouter</button>
       </div>
 
-
       <div *ngIf="!adoptWithNewFamilyFormGroup.valid">
         <h3 class="curv-perso pt-3">Instructions pour compléter ce formulaire: </h3>
         <ul>
@@ -147,7 +144,6 @@
           <li>Le numéro de téléphone doit contenir 10 chiffres (pas de tiret, ni d'espace, ni de slash)</li>
           <li>Le numéro de téléphone doit être unique</li>
         </ul>
-
       </div>
     </form>
 

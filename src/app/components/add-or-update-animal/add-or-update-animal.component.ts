@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
 import { Animal } from 'src/app/classes/animal';
 import { AnimalService } from 'src/app/services/animal.service';
 
+// Validateurs pour la date. Vérification du pattern et que la date ne soit pas dans le futur
 export const validDate: ValidatorFn = (control) => {
 
   if (control && (control.dirty || control.touched)) {
@@ -54,10 +55,11 @@ export class AddOrUpdateAnimalComponent implements OnInit {
   myAnimal: Animal = new Animal();
   animalForForm: Observable<Animal>;
   isFormForAdd: boolean = this.router.url.endsWith("/add");
-  title: string = "Nouveau pensionnaire :"
+  title: string = "Nouveau pensionnaire :";
 
   constructor(private formBuilder: FormBuilder, private animalService: AnimalService,
-    private router: Router, private route: ActivatedRoute) { }
+    private router: Router, private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
 
@@ -72,7 +74,7 @@ export class AddOrUpdateAnimalComponent implements OnInit {
 
     this.animalFormGroup = this.formBuilder.group({
       name: ['', Validators.compose(
-        [Validators.required, Validators.pattern('^[A-Z][a-z]{2,14}$')]
+        [Validators.required, Validators.pattern('^[A-Z][a-zéàèêîï]{2,14}$')]
       )],
       race: ['', Validators.required],
       species: ['Chat', Validators.required],
@@ -110,7 +112,9 @@ export class AddOrUpdateAnimalComponent implements OnInit {
   onSubmit() {
     this.saveOrUpdateAnimal();
 
-    this.router.navigate(['/animals']);
+    this.router.navigate(['/animals']).then(() => {
+      window.location.reload();
+    });
   }
 
   saveOrUpdateAnimal() {
@@ -123,7 +127,7 @@ export class AddOrUpdateAnimalComponent implements OnInit {
       //Si elle n'est pas nulle, elle a été modifiée ou crée, faut donc l'enregistrer.
       if (newProperty) {
 
-        switch(propForm){
+        switch (propForm) {
           case "name": {
             this.myAnimal.name = newProperty;
             break;
@@ -152,24 +156,24 @@ export class AddOrUpdateAnimalComponent implements OnInit {
       }
     }
 
-    if(this.isFormForAdd){
+    if (this.isFormForAdd) {
       this.myAnimal.hostFamily = null;
       this.myAnimal.adopted = false;
       this.save();
-    }else{
+    } else {
       this.update();
     }
   }
-  
+
   save() {
     this.animalService.createAnimal(this.myAnimal)
       .subscribe(data => console.log(data), error => console.log(error));
     this.myAnimal = new Animal();
   }
 
-  update(){
+  update() {
     this.animalService.updateAnimal(this.myAnimal)
-    .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => console.log(data), error => console.log(error));
   }
 
 }

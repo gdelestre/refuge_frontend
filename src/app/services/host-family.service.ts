@@ -13,9 +13,18 @@ export class HostFamilyService {
 
   constructor(private httpClient: HttpClient) { }
 
-
-  getAllHostFamily(): Observable<HostFamily[]> {
+  getAllHostFamilies(): Observable<HostFamily[]> {
     return this.httpClient.get<HostFamily[]>(this.baseUrl);
+  }
+
+  getHostFamilyByPhoneNumber(phoneNumber: string): Observable<HostFamily>{
+    const url = `${this.baseUrl}/phone/${phoneNumber}`;
+    return this.httpClient.get<HostFamily>(url);
+  }
+
+  getAllHostFreeFamilies(): Observable<HostFamily[]> {
+    const url = `${this.baseUrl}/free`;
+    return this.httpClient.get<HostFamily[]>(url);
   }
 
   getFamilyById(id: string): Observable<HostFamily> {
@@ -31,13 +40,28 @@ export class HostFamilyService {
     return this.httpClient.put(this.baseUrl, hostFamily).pipe(catchError(this.handleError));
   }
 
-
   handleError(error: HttpErrorResponse) {
     let errorMessage = "";
     if (error.status == 403) {
-      errorMessage = `Ajout impossible! Ce numéro de téléphone est déjà utilisé.`;
+      errorMessage = `Ajout ou modification impossible! Ce numéro de téléphone est déjà utilisé.`;
     }else{
       errorMessage = `Erreur. L'ajout n'a pas pu être effectué.`;
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
+  }
+
+  deleteFamily(id:string){
+    const url = `${this.baseUrl}/${id}`;
+    return this.httpClient.delete(url).pipe(catchError(this.handleErrorDelete));
+  }
+
+  handleErrorDelete(error: HttpErrorResponse) {
+    let errorMessage = "";
+    if (error.status == 403) {
+      errorMessage = "Suppression impossible, cette famille accueille encore des animaux.";
+    }else{
+      errorMessage = `Erreur. La suppression n'a pas eu lieu.`;
     }
     window.alert(errorMessage);
     return throwError(errorMessage);

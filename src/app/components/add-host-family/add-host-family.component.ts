@@ -18,20 +18,20 @@ export class AddHostFamilyComponent implements OnInit {
   myAnimal: Animal = new Animal();
   myHostFamily: HostFamily = new HostFamily();
 
-  allHostFamilies: HostFamily[];
+  allHostFreeFamilies: HostFamily[];
 
   hostWithNewFamilyFormGroup: FormGroup;
   hostWithExistingFamilyFormGroup: FormGroup;
   selectedOption: string;
-
-
+  
   constructor(private formBuilder: FormBuilder, private animalService: AnimalService,
-    private hostFamilyService: HostFamilyService, private route: ActivatedRoute, private router: Router) { }
+    private hostFamilyService: HostFamilyService, private route: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.isUpdate();
     this.getAnimal();
-    this.getAllHostFamilies();
+    this.getAllHostFreeFamilies();
     this.hostWithNewFamilyFormGroup = this.formBuilder.group({
       hostFamily: this.formBuilder.group({
         firstName: ['', Validators.compose(
@@ -62,8 +62,8 @@ export class AddHostFamilyComponent implements OnInit {
     });
   }
 
-  isUpdate(){
-    if(this.router.url.startsWith("/update")){
+  isUpdate() {
+    if (this.router.url.startsWith("/update")) {
       this.title = "Changer la famille d'accueil pour";
     }
   }
@@ -100,15 +100,14 @@ export class AddHostFamilyComponent implements OnInit {
     return (this.selectedOption === name);
   }
 
-  getAllHostFamilies() {
-    this.hostFamilyService.getAllHostFamily().subscribe(
-      data => this.allHostFamilies = data
+  getAllHostFreeFamilies() {
+    this.hostFamilyService.getAllHostFreeFamilies().subscribe(
+      data => this.allHostFreeFamilies = data
     );
   }
 
   onSubmitNewFamily() {
     this.saveHostFamily();
-    this.hostWithNewFamilyFormGroup.reset();
     this.router.navigate(['/animals/']);
   }
 
@@ -122,25 +121,31 @@ export class AddHostFamilyComponent implements OnInit {
     this.myHostFamily.streetNumber = this.hostWithNewFamilyFormGroup.get('hostFamily').value.streetNumber;
     this.myHostFamily.phoneNumber = this.hostWithNewFamilyFormGroup.get('hostFamily').value.phoneNumber;
 
-    this.myAnimal.hostFamily = this.myHostFamily;
 
-    this.updateAnimal();
+    this.hostFamilyService.getHostFamilyByPhoneNumber(this.myHostFamily.phoneNumber)
+      .subscribe(family => {
+        if (family) {
+          window.alert("Ce numéro de téléphone est déjà utilisé.");
+        } else {
+          this.myAnimal.hostFamily = this.myHostFamily;
+          this.updateAnimal();
+        }
+      });
   }
 
   onSubmitExistingFamily() {
     this.saveAdoption();
-    this.hostWithExistingFamilyFormGroup.reset();
     this.router.navigate(['/animals/']);
   }
 
-  saveAdoption(){
+  saveAdoption() {
     this.myAnimal.hostFamily = this.myHostFamily;
     this.updateAnimal();
   }
 
-  updateAnimal(){
+  updateAnimal() {
     this.animalService.updateAnimal(this.myAnimal)
-    .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => console.log(data), error => console.log(error));
   }
 
 }

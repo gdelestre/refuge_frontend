@@ -18,4 +18,11 @@ export class AdoptAnimalService {
   createAdoption(adoption: object){
     return this.httpClient.post(this.baseUrl, adoption);
   }
+
+  deleteAdoptionByAnimalId(id: string): Observable<AdoptAnimal>{
+    const url = `${this.baseUrl}/${id}`;
+    return this.httpClient.delete<AdoptAnimal>(url);
+  }
+
+ 
 }

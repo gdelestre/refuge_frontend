@@ -26,7 +26,8 @@
     </div>
     <div class="row pl-4">
         <div class="pr-5 pl-2">
-            <button *ngIf="!myAnimal.adopted" routerLink="/adopt/{{ myAnimal.id }}" class="btn btn btn-outline-success">
+            <button *ngIf="!myAnimal.adopted" (click)="confirmAdoption(myAnimal.id)"
+                class="btn btn btn-outline-success">
                 Ajouter un adoptant
             </button>
         </div>
@@ -41,12 +42,12 @@
                 Modifier
             </button>
         </div>
-        <div class="pl-5">
-            <button routerLink="/delete/{{ myAnimal.id }}" class="btn btn-outline-danger">
+        <div class="pl-5" *ngIf="!myAnimal.adopted">
+            <button class="btn btn-outline-danger" (click)="deleteAnimal(myAnimal)">
                 Supprimer
             </button>
         </div>
-        
+
         <br>
     </div>
 
@@ -78,7 +79,8 @@
             </tbody>
         </table>
         <div class="pb-2">
-            <button routerLink="/adoptives/{{ myAnimal.adoption.adoptiveFamily.id }}/update" class="btn btn-outline-info">
+            <button routerLink="/adoptives/{{ myAnimal.adoption.adoptiveFamily.id }}/update"
+                class="btn btn-outline-info">
                 Modifier les coordonnées
             </button>
         </div>
@@ -107,10 +109,17 @@
                 </tr>
             </tbody>
         </table>
-        <div class="pb-2">
-            <button routerLink="/hosts/{{ myAnimal.hostFamily.id }}/update" class="btn btn-outline-info">
-                Modifier les coordonnées
-            </button>
+        <div class="pb-2 row">
+            <div class="col-md-3">
+                <button routerLink="/hosts/{{ myAnimal.hostFamily.id }}/update" class="btn btn-outline-info">
+                    Modifier les coordonnées
+                </button>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-outline-danger" (click)="backToTheRefuge(myAnimal)">
+                    Retour au refuge
+                </button>
+            </div>
         </div>
     </div>
 

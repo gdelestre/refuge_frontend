@@ -57,7 +57,7 @@ export class AddOrUpdateCareComponent implements OnInit {
   allVeterinaries: Veterinary[];
   myVeterinary: Veterinary;
   myCare: VeterinaryCare = new VeterinaryCare();
-  
+
   careForForm: Observable<VeterinaryCare>;
   isFormForAdd: boolean = this.router.url.endsWith("/add");
   title: string = "Nouveau soin pour :"
@@ -66,14 +66,15 @@ export class AddOrUpdateCareComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
     private animalService: AnimalService, private veterinaryService: VeterinaryService,
-    private careService: VeterinaryCareService) { }
+    private careService: VeterinaryCareService) {
+  }
 
   ngOnInit(): void {
 
     //Si le formulaire n'est pas pour ajouter un soin, il est pour modifier un soin :
     // --> faut charger le soin à modifier
     // --> faut charger le formulaire avec les données du soin à modifier
-    if(!this.isFormForAdd){
+    if (!this.isFormForAdd) {
       this.getCare();
       this.updateFormWithCare();
       this.title = "Modification du soin pour : "
@@ -104,11 +105,11 @@ export class AddOrUpdateCareComponent implements OnInit {
       .subscribe(data => this.myCare = data);
   }
 
-  updateFormWithCare(){
+  updateFormWithCare() {
     let careId = this.getIdCare();
     this.careForForm = this.careService
-    .getVeterinaryCareById(careId)
-    .pipe(tap(care => this.careFormGroup.patchValue(care)));
+      .getVeterinaryCareById(careId)
+      .pipe(tap(care => this.careFormGroup.patchValue(care)));
   }
 
   //Récupère l'ID de l'animal via l'URL
@@ -135,10 +136,12 @@ export class AddOrUpdateCareComponent implements OnInit {
   onSubmit() {
     this.saveOrUpdateVeterinaryCare();
     this.careFormGroup.reset();
-    this.router.navigate(['/cares']);
+    this.router.navigate(['/cares']).then(() => {
+      window.location.reload();
+    });
   }
 
-   saveOrUpdateVeterinaryCare() {
+  saveOrUpdateVeterinaryCare() {
     let allCareFormProps: string[] = ["examen", "examenDate", "examenTime"];
 
     //Boucle sur les propriétés du formulaire
@@ -163,9 +166,9 @@ export class AddOrUpdateCareComponent implements OnInit {
         }
       }
     }
-    if(this.isFormForAdd){
+    if (this.isFormForAdd) {
       this.save();
-    }else{
+    } else {
       this.update();
     }
   }
@@ -184,9 +187,9 @@ export class AddOrUpdateCareComponent implements OnInit {
     let idVeterinary;
 
     //Si un nouveau vétérinaire est coché
-    if(this.careFormGroup.value["veterinaryId"]){
+    if (this.careFormGroup.value["veterinaryId"]) {
       idVeterinary = this.getIdVeterinary();
-    } else{
+    } else {
       idVeterinary = this.myCare.veterinary.id;
     }
 
