@@ -9,7 +9,7 @@ import { Veterinary } from '../classes/veterinary';
 })
 export class VeterinaryService {
 
-  private baseUrl = 'http://localhost:8080/api/veterinary';
+  private baseUrl = 'http://refuge.francecentral.cloudapp.azure.com:8080/refuge/api/veterinary';
 
   constructor(private httpClient: HttpClient) { }
 

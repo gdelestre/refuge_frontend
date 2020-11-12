@@ -7,7 +7,7 @@ import { AdoptAnimal } from '../classes/adopt-animal';
   providedIn: 'root'
 })
 export class AdoptAnimalService {
-  private baseUrl = 'http://localhost:8080/api/adoption';
+  private baseUrl = 'http://refuge.francecentral.cloudapp.azure.com:8080/refuge/api/adoption';
 
   constructor(private httpClient: HttpClient) { }
 

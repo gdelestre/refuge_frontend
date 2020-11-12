@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class VeterinaryCareService {
 
-  private baseUrl = 'http://localhost:8080/api';
+  private baseUrl = 'http://refuge.francecentral.cloudapp.azure.com:8080/refuge/api';
 
   constructor(private httpClient: HttpClient) { }
 
