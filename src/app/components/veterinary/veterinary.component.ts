@@ -20,6 +20,9 @@ export class VeterinaryComponent implements OnInit {
   //Modal pour confirmation
   modalRef: BsModalRef;
 
+  //Pour pagination
+  page: number = 1;
+
   constructor(private veterinaryService: VeterinaryService, private careService: VeterinaryCareService,
     private router: Router, private modalService: BsModalService) {
   }
@@ -40,46 +43,46 @@ export class VeterinaryComponent implements OnInit {
     this.careService.getVeterinaryCaresToDo()
       .subscribe(data => this.myVeterinaryCares = data);
   }
-
+  
   deleteCare(care: VeterinaryCare) {
+    const modal = this.modalService.show(ConfirmModalComponent);
+    (<ConfirmModalComponent>modal.content).showConfirmationModal(
+      "Confirmation annulation",
+      `Voulez-vous vraiment annuler ce soin pour ${care.animal.name}?`,
+      null
+    );
 
-    this.modalRef = this.modalService.show(ConfirmModalComponent, {
-      initialState: {
-        title: "Confirmation annulation",
-        prompt: `Voulez-vous vraiment annuler ce soin pour ${care.animal.name}?`,
-        callback: (result) => {
-          if (result == 'oui') {
-            this.careService.deleteCare(care.id)
+    (<ConfirmModalComponent>modal.content).onClose.subscribe(result => {
+      if (result === true) {
+        this.careService.deleteCare(care.id)
+          .subscribe(data => console.log(data), error => console.log(error));
+        this.router.navigate(['/cares']).then(() => {
+          window.location.reload();
+        });
+      }
+    });
+
+  }
+
+ deleteVeterinary(veterinary: Veterinary) {
+  const modal = this.modalService.show(ConfirmModalComponent);
+  (<ConfirmModalComponent>modal.content).showConfirmationModal(
+    "Confirmation suppression",
+    `Voulez-vous vraiment supprimer le docteur ${veterinary.lastName.toUpperCase()}?`,
+    "Tous les soins fait par ce docteur seront également supprimés."
+  );
+
+  (<ConfirmModalComponent>modal.content).onClose.subscribe(result => {
+    if (result === true) {
+      this.veterinaryService.deleteVeterinary(veterinary.id)
               .subscribe(data => console.log(data), error => console.log(error));
             this.router.navigate(['/cares']).then(() => {
               window.location.reload();
             });
-          }
-        }
-      }
-    });
-  }
+    }
+  });
 
-  deleteVeterinary(veterinary: Veterinary) {
-    //const now = formatDate(new Date(), 'yyyy-MM-dd', 'en_US');
-
-    this.modalRef = this.modalService.show(ConfirmModalComponent, {
-      initialState: {
-        title: "Confirmation suppression",
-        prompt: `Voulez-vous vraiment supprimer le docteur ${veterinary.lastName.toUpperCase()}?`,
-        detail: "Tous les soins fait par ce docteur seront également supprimés.",
-
-        callback: (result) => {
-          if (result == 'oui') {
-            this.veterinaryService.deleteVeterinary(veterinary.id)
-              .subscribe(data => console.log(data), error => console.log(error));
-            this.router.navigate(['/cares']).then(() => {
-              window.location.reload();
-            });
-          }
-        }
-      }
-    });
-  }
+ 
+}
 
 }

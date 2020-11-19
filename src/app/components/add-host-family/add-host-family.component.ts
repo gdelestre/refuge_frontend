@@ -106,9 +106,11 @@ export class AddHostFamilyComponent implements OnInit {
     );
   }
 
-  onSubmitNewFamily() {
+  onSubmitNewFamily(animal: Animal) {
     this.saveHostFamily();
-    this.router.navigate(['/animals/']);
+    this.router.navigate(['/animals/details/'+animal.id]).then(() => {
+      window.location.reload();
+    });
   }
 
   saveHostFamily() {
@@ -133,9 +135,11 @@ export class AddHostFamilyComponent implements OnInit {
       });
   }
 
-  onSubmitExistingFamily() {
+  onSubmitExistingFamily(animal: Animal) {
     this.saveAdoption();
-    this.router.navigate(['/animals/']);
+    this.router.navigate(['/animals/details/'+animal.id]).then(() => {
+      window.location.reload();
+    });
   }
 
   saveAdoption() {

@@ -13,7 +13,7 @@
   
     <div *ngIf="isSelected('Yes')" class="pt-4">
   
-      <form [formGroup]="hostWithExistingFamilyFormGroup" (ngSubmit)="onSubmitExistingFamily()" autocomplete="off">
+      <form [formGroup]="hostWithExistingFamilyFormGroup" (ngSubmit)="onSubmitExistingFamily(myAnimal)" autocomplete="off">
   
         <div formGroupName="hostAnimal" class="form-area">
   
@@ -41,7 +41,7 @@
     <div *ngIf="isSelected('No')" class="pt-4">
   
       <!-- Fait référence au nom définie dans le fichier.ts-->
-      <form [formGroup]="hostWithNewFamilyFormGroup" (ngSubmit)="onSubmitNewFamily()" autocomplete="off">
+      <form [formGroup]="hostWithNewFamilyFormGroup" (ngSubmit)="onSubmitNewFamily(myAnimal)" autocomplete="off">
   
         <div formGroupName="hostFamily" class="form-area">
           <div class="form-group centered pt-4">

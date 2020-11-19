@@ -11,22 +11,26 @@ import { Animal } from 'src/app/classes/animal';
 })
 export class AnimalComponent implements OnInit {
 
-myAnimals: Animal[] = [];
-speciesFilter: boolean = false;
+  myAnimals: Animal[] = [];
+  speciesFilter: boolean = false;
+  page: number = 1;
 
-  constructor(private route:ActivatedRoute, private animalService: AnimalService) { }
+  constructor(private route: ActivatedRoute, private animalService: AnimalService) {
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
-      () => {this.listAnimals()});
+      () => { this.listAnimals() });
+
+
   }
 
-  listAnimals(){
+  listAnimals() {
     this.speciesFilter = this.route.snapshot.paramMap.has("species");
 
-    if(this.speciesFilter){
+    if (this.speciesFilter) {
       this.getFilterAnimals();
-    }else{
+    } else {
       this.getAllAnimals();
     }
   }
@@ -37,11 +41,12 @@ speciesFilter: boolean = false;
     );
   }
 
-  getFilterAnimals(){
+  getFilterAnimals() {
     let selectedSpecies = this.route.snapshot.paramMap.get("species");
     this.animalService.getAnimalsBySpecies(selectedSpecies).subscribe(
       data => this.myAnimals = data
     );
   }
+
 
 }

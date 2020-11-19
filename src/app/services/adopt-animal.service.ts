@@ -7,7 +7,8 @@ import { AdoptAnimal } from '../classes/adopt-animal';
   providedIn: 'root'
 })
 export class AdoptAnimalService {
-  private baseUrl = 'http://refuge.francecentral.cloudapp.azure.com:8080/refuge/api/adoption';
+  private baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/adoption';
+  //private baseUrl = 'http://localhost:8080/api/adoption';
 
   constructor(private httpClient: HttpClient) { }
 

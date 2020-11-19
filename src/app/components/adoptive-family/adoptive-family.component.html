@@ -3,14 +3,14 @@
 
         <h3 class="curv-perso pb-3"><u>Nos adoptions :</u></h3>
 
-        <ul *ngFor="let tempAdoption of myAdoptions" class="pb-3">
+        <ul *ngFor="let tempAdoption of myAdoptions | paginate: { itemsPerPage: 5, currentPage: p }" class="pb-2">
             <div *ngFor="let tempAnimal of myAdoptedAnimals">
                 <div *ngIf="tempAnimal.adoption.id === tempAdoption.id">
                     <li>
                         <div class="row">
                             <div class="col-md-6">
                                 <h5>
-                                    Adoption de {{ tempAnimal.name }} le
+                                    {{ tempAnimal.name }} le
                                     {{tempAdoption.adoptionDate | date: 'dd/MM/yyyy'}}
                                     par M./Mme {{tempAdoption.adoptiveFamily.lastName.toUpperCase() }}
                                     {{ tempAdoption.adoptiveFamily.firstName}}.
@@ -27,7 +27,7 @@
                                     {{ tempAdoption.adoptiveFamily.streetName }}
                                     {{ tempAdoption.adoptiveFamily.zipCode }} {{ tempAdoption.adoptiveFamily.city }}
                                 </span>
-                                <span class="px-4">Téléphone:
+                                <span class="px-4">Tel:
                                     {{tempAdoption.adoptiveFamily.phoneNumber |slice:0:2 }}-{{tempAdoption.adoptiveFamily.phoneNumber |slice:2:4 }}-{{ tempAdoption.adoptiveFamily.phoneNumber |slice:4:6 }}-{{ tempAdoption.adoptiveFamily.phoneNumber |slice:6:8 }}-{{ tempAdoption.adoptiveFamily.phoneNumber |slice:8:10 }}
                                 </span>
                             </div>
@@ -48,5 +48,9 @@
                 </div>
             </div>
         </ul>
+        <div class="centered">
+            <pagination-controls previousLabel="Précédent" nextLabel="Suivant" (pageChange)="p = $event">
+            </pagination-controls>
+        </div>
     </div>
 </div>

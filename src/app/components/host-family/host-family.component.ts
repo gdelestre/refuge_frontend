@@ -14,24 +14,42 @@ import { Router } from '@angular/router';
 })
 export class HostFamilyComponent implements OnInit {
 
-  myHostFamilies: HostFamily[] = [];
+  myFamilies: HostFamily[] = [];
+
   myAnimalsInHostFamily: Animal[] = [];
   hostFamily: HostFamily;
 
   //Modal pour confirmation
   modalRef: BsModalRef;
 
+  //Pour pagination
+  p: number = 1;
+
+  freeFamilies: boolean = this.router.url.startsWith('/free')
+  title: string = "Famille(s) pouvant accueillir d'autres animaux:";
+
   constructor(private hostFamilyService: HostFamilyService, private animalService: AnimalService,
     private modalService: BsModalService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getAllHostFamilies();
+    if (this.freeFamilies) {
+      this.getAllFreeHostFamilies();
+    } else {
+      this.title = "Famille(s) ne pouvant plus en accueillir:";
+      this.getAllFullHostFamilies();
+    }
     this.getAllAnimalsInHostFamilies();
   }
 
-  getAllHostFamilies() {
-    this.hostFamilyService.getAllHostFamilies().subscribe(
-      data => this.myHostFamilies = data
+  getAllFreeHostFamilies() {
+    this.hostFamilyService.getAllHostFreeFamilies().subscribe(
+      data => this.myFamilies = data
+    );
+  }
+
+  getAllFullHostFamilies() {
+    this.hostFamilyService.getAllHostFullFamilies().subscribe(
+      data => this.myFamilies = data
     );
   }
 
@@ -49,6 +67,16 @@ export class HostFamilyComponent implements OnInit {
       this.hostFamily.free = true;
     }
     this.updateFamily();
+    if(this.freeFamilies){
+      this.router.navigate(['/full/hosts']).then(() => {
+        window.location.reload();
+      });
+    }else{
+      this.router.navigate(['/free/hosts']).then(() => {
+        window.location.reload();
+      });
+    }
+
   }
 
   updateFamily() {
@@ -57,20 +85,29 @@ export class HostFamilyComponent implements OnInit {
   }
 
   deleteFamily(family: HostFamily) {
-    this.modalRef = this.modalService.show(ConfirmModalComponent, {
-      initialState: {
-        title: "Confirmation suppression",
-        prompt: `Voulez-vous vraiment supprimer la famille ${family.lastName.toUpperCase()}?`,
-        callback: (result) => {
-          if (result == 'oui') {
-            this.hostFamilyService.deleteFamily(family.id)
-              .subscribe(data => console.log(data), error => console.log(error));
+    const modal = this.modalService.show(ConfirmModalComponent);
+    (<ConfirmModalComponent>modal.content).showConfirmationModal(
+      "Confirmation suppression",
+      `Voulez-vous vraiment supprimer la famille ${family.lastName.toUpperCase()}?`,
+      null
+    );
 
-            this.router.navigate(['/hosts']).then(() => {
-              window.location.reload();
-            });
-          }
+    (<ConfirmModalComponent>modal.content).onClose.subscribe(result => {
+      if (result === true) {
+        this.hostFamilyService.deleteFamily(family.id)
+          .subscribe(data => console.log(data), error => console.log(error));
+
+        if (this.freeFamilies) {
+          this.router.navigate(['/free/hosts']).then(() => {
+            window.location.reload();
+          });
+        } else {
+          this.router.navigate(['/full/hosts']).then(() => {
+            window.location.reload();
+          });
         }
+
+
       }
     });
   }

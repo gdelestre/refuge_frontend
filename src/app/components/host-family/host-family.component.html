@@ -1,10 +1,10 @@
 <div class="container-fluid pt-4">
     <div class="container-fluid">
 
-        <h3 class="curv-perso pb-3"><u>Famille(s) pouvant accueillir d'autres animaux:</u></h3>
+        <h3 class="curv-perso pb-3"><u>{{title}}</u></h3>
 
-        <ul *ngFor="let tempHost of myHostFamilies">
-            <li *ngIf="tempHost.free">
+        <ul *ngFor="let tempHost of myFamilies| paginate: { itemsPerPage: 5, currentPage: p }">
+            <li>
                 <div class="row">
                     <div class="pl-2 col-md-4">
                         <h5 class="pl-2">M./Mme {{tempHost.lastName.toUpperCase() }} {{ tempHost.firstName}}</h5>
@@ -15,29 +15,28 @@
                     </div>
                 </div>
             </li>
-            <div *ngIf="tempHost.free">
-                <div class="row">
-                    <div class="col-4">
-                        Adresse: {{ tempHost.streetNumber }} {{ tempHost.streetName }}
-                        {{ tempHost.zipCode }} {{ tempHost.city }}
-                    </div>
-                    <div class="col-4">Téléphone:
-                        {{tempHost.phoneNumber |slice:0:2 }}-{{tempHost.phoneNumber |slice:2:4 }}-{{ tempHost.phoneNumber |slice:4:6 }}-{{ tempHost.phoneNumber |slice:6:8 }}-{{ tempHost.phoneNumber |slice:8:10 }}
-                    </div>
-                    <div class="col-1">
-                        <button routerLink="/hosts/{{ tempHost.id }}/update" class="btn btn-outline-info">
-                            Modifier
-                        </button>
-                    </div>
-                    <div class="col-1">
-                        <button class="btn btn-outline-danger" (click)="deleteFamily(tempHost)">
-                            Supprimer
-                        </button>
-                    </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    Adresse: {{ tempHost.streetNumber }} {{ tempHost.streetName }}
+                    {{ tempHost.zipCode }} {{ tempHost.city }}
+                </div>
+                <div class="col-md-4">Téléphone:
+                    {{tempHost.phoneNumber |slice:0:2 }}-{{tempHost.phoneNumber |slice:2:4 }}-{{ tempHost.phoneNumber |slice:4:6 }}-{{ tempHost.phoneNumber |slice:6:8 }}-{{ tempHost.phoneNumber |slice:8:10 }}
+                </div>
+                <div class="col-auto">
+                    <button routerLink="/hosts/{{ tempHost.id }}/update" class="btn btn-outline-info">
+                        Modifier
+                    </button>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-outline-danger" (click)="deleteFamily(tempHost)">
+                        Supprimer
+                    </button>
                 </div>
             </div>
 
-            <div *ngIf="tempHost.free">
+            <div>
                 <div class="row pt-2 pb-3">
                     <div class="col col-md-2">
                         <p><u>Animaux : </u> </p>
@@ -53,61 +52,11 @@
         </ul>
     </div>
 
-    <br>
-    <br>
-
-    <div class="container-fluid">
-
-        <h3 class="curv-perso pb-3"><u>Famille(s) ne pouvant plus en accueillir:</u></h3>
-
-
-        <ul *ngFor="let tempHost of myHostFamilies">
-            <li *ngIf="!tempHost.free">
-                <div class="row">
-                    <div class="pl-2 col-md-4">
-                        <h5 class="pl-2">M./Mme {{tempHost.lastName.toUpperCase() }} {{ tempHost.firstName}}</h5>
-                    </div>
-                    <div>
-                        <ui-switch checkedLabel="Disponible!" uncheckedLabel="Plus de place" uncheckedTextColor="red"
-                            [checked]=tempHost.free (changeEvent)="onChangeEvent(tempHost)"></ui-switch>
-                    </div>
-                </div>
-            </li>
-            <div *ngIf="!tempHost.free">
-                <div class="row">
-                    <div class="col-4">
-                        Adresse: {{ tempHost.streetNumber }} {{ tempHost.streetName }}
-                        {{ tempHost.zipCode }} {{ tempHost.city }}
-                    </div>
-                    <div class="col-4">Téléphone:
-                        {{tempHost.phoneNumber |slice:0:2 }}-{{tempHost.phoneNumber |slice:2:4 }}-{{ tempHost.phoneNumber |slice:4:6 }}-{{ tempHost.phoneNumber |slice:6:8 }}-{{ tempHost.phoneNumber |slice:8:10 }}
-                    </div>
-                    <div class="col-1">
-                        <button routerLink="/hosts/{{ tempHost.id }}/update" class="btn btn-outline-info">
-                            Modifier
-                        </button>
-                    </div>
-                    <div class="col-1">
-                        <button class="btn btn-outline-danger" (click)="deleteFamily(tempHost)">
-                            Supprimer
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div *ngIf="!tempHost.free">
-                <div class="row pt-2 pb-3">
-                    <div class="col col-md-2">
-                        <p><u>Animaux : </u> </p>
-                    </div>
-                    <ng-container *ngFor="let tempAnimal of myAnimalsInHostFamily" class="col-md-auto">
-                        <div *ngIf="tempAnimal.hostFamily.phoneNumber === tempHost.phoneNumber">
-                            <span class="pr-5">{{ tempAnimal.name }} </span>
-                        </div>
-                    </ng-container>
-                </div>
-            </div>
-        </ul>
+    <div class="col-12 pt-4">
+        <div class="centered">
+            <pagination-controls previousLabel="Précédent" nextLabel="Suivant" (pageChange)="p = $event">
+            </pagination-controls>
+        </div>
     </div>
 
 </div>

@@ -10,7 +10,8 @@ import { catchError } from 'rxjs/operators';
 })
 export class AnimalService {
 
-  private baseUrl = 'http://refuge.francecentral.cloudapp.azure.com:8080/refuge/api/animal';
+  private baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/animal';
+  //private baseUrl = 'http://localhost:8080/api/animal';
 
   constructor(private httpClient: HttpClient) { }
 

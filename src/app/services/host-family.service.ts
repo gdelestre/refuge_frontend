@@ -9,13 +9,10 @@ import { catchError } from 'rxjs/operators';
 })
 export class HostFamilyService {
 
-  private baseUrl = 'http://refuge.francecentral.cloudapp.azure.com:8080/refuge/api/host';
+  private baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/host';
+  //private baseUrl = 'http://localhost:8080/api/host';
 
   constructor(private httpClient: HttpClient) { }
-
-  getAllHostFamilies(): Observable<HostFamily[]> {
-    return this.httpClient.get<HostFamily[]>(this.baseUrl);
-  }
 
   getHostFamilyByPhoneNumber(phoneNumber: string): Observable<HostFamily>{
     const url = `${this.baseUrl}/phone/${phoneNumber}`;
@@ -24,6 +21,11 @@ export class HostFamilyService {
 
   getAllHostFreeFamilies(): Observable<HostFamily[]> {
     const url = `${this.baseUrl}/free`;
+    return this.httpClient.get<HostFamily[]>(url);
+  }
+
+  getAllHostFullFamilies(): Observable<HostFamily[]> {
+    const url = `${this.baseUrl}/full`;
     return this.httpClient.get<HostFamily[]>(url);
   }
 

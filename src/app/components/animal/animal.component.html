@@ -1,45 +1,23 @@
 <div class="row justify-content-start">
-    <div class="col-2">
-        <nav class="navbar navbar-light pl-5">
-            <ul class="nav navbar-nav">
-                <li class="nav-item py-4">
-                    <a class="nav-link" routerLink="/animals/Chien">Nos chiens</a>
-                </li>
-                <li class="nav-item py-4">
-                    <a class="nav-link" routerLink="/animals/Chat">Nos chats</a>
-                </li>
-                <li class="nav-item py-4">
-                    <a class="nav-link" routerLink="/animals/NAC_Rongeur">Nos rongeurs</a>
-                </li>
-                <li class="nav-item py-4">
-                    <a class="nav-link" routerLink="/animals/NAC_Reptile">Nos reptiles</a>
-                </li>
-                <li class="nav-item py-4">
-                    <a class="nav-link" routerLink="/animals/Autre">Autre Animaux</a>
-                </li>
-            </ul>
-        </nav>
-
-    </div>
-    <div class="col-10">
+    <div class="col-12">
         <div class="container-fluid pt-4">
             <div class="row justify-content-md-center">
                 <div class="col-md-2 mx-4 animalsContainer" [ngStyle]="{'border-color': 'green'}">
-                    <p class="text-center mt-2">Adopté</p>
+                    <p class="text-center mt-2">En cours d'adoption</p>
                 </div>
                 <div class="col-md-2 mx-4 animalsContainer" [ngStyle]="{'border-color': 'orange'}">
-                    <p class="text-center mt-2">En famille d'acceuil</p>
+                    <p class="text-center mt-2">En famille d'accueil</p>
                 </div>
                 <div class="col-md-2 mx-4 animalsContainer" [ngStyle]="{'border-color': 'red'}">
                     <p class="text-center mt-2">Au refuge</p>
                 </div>
             </div>
 
-
             <div class="row pt-4" *ngIf="myAnimals.length !== 0; else noAnimal">
 
                 <!-- loop over the collection of animals-->
-                <div *ngFor="let tempAnimal of myAnimals" class="col-md-2">
+                <div *ngFor="let tempAnimal of myAnimals | paginate: { itemsPerPage: 30, currentPage: page }"
+                    class="col-md-2">
                     <div class="product-box pb-3">
                         <a routerLink="/animals/details/{{ tempAnimal.id }}" routerLinkActive="active-link">
                             <!-- Si ni adopté, ni en famille d'accueil: bordure rouge, sinon si adopté: bordure verte, sinon (en famille d'acceuil): bordure orange-->
@@ -57,10 +35,18 @@
                     Nous n'avons pas d'animal pour cette espèce.
                 </div>
             </ng-template>
+        </div>
 
-            <button routerLink="/animals/add" class="btn btn-outline-secondary float-left">Ajouter un animal</button>
-
+        <div class="pl-2">
+            <button routerLink="/animals/add" class="btn btn-outline-secondary float-left ">Ajouter un
+                animal</button>
         </div>
     </div>
 
+    <div class="col-12 pt-4">
+        <div class="centered">
+            <pagination-controls previousLabel="Précédent" nextLabel="Suivant" (pageChange)="page = $event">
+            </pagination-controls>
+        </div>
+    </div>
 </div>

@@ -74,7 +74,7 @@ export class AddOrUpdateAnimalComponent implements OnInit {
 
     this.animalFormGroup = this.formBuilder.group({
       name: ['', Validators.compose(
-        [Validators.required, Validators.pattern('^[A-Z][a-zéàèêîï]{2,14}$')]
+        [Validators.required, Validators.pattern('^[A-Z][a-zéàèêîï]{2,11}$')]
       )],
       race: ['', Validators.required],
       species: ['Chat', Validators.required],

@@ -37,7 +37,7 @@
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody *ngFor="let tempVetCare of myVeterinaryCares">
+            <tbody *ngFor="let tempVetCare of myVeterinaryCares| paginate: { itemsPerPage: 5, currentPage: page }">
                 <tr *ngIf="tempVetCare.veterinary.id === tempVeterinary.id">
                     <td> {{ tempVetCare.examen }}</td>
                     <td> {{ tempVetCare.examenDate | date: 'dd/MM/yyyy'}}</td>
@@ -59,3 +59,9 @@
         </table>
 
     </div>
+
+    <div class="centered">
+        <pagination-controls previousLabel="Précédent" nextLabel="Suivant" (pageChange)="page = $event">
+        </pagination-controls>
+    </div>
+</div>

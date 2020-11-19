@@ -50,42 +50,45 @@ export class AnimalDetailsComponent implements OnInit {
   }
 
   deleteAnimal(animal: Animal) {
-    this.modalRef = this.modalService.show(ConfirmModalComponent, {
-      initialState: {
-        title: "Confirmation suppression",
-        prompt: `Voulez-vous vraiment supprimer l'animal: ${animal.name}?`,
-        callback: (result) => {
-          if (result == 'oui') {
-            this.animalService.deleteAnimal(animal.id)
-              .subscribe(data => console.log(data), error => console.log(error));
+    const modal = this.modalService.show(ConfirmModalComponent);
+    (<ConfirmModalComponent>modal.content).showConfirmationModal(
+      "Confirmation suppression",
+      `Voulez-vous vraiment supprimer l'animal: ${animal.name}?`,
+      null
+    );
 
-            this.router.navigate(['/animals']).then(() => {
-              window.location.reload();
-            });
-          }
-        }
+    (<ConfirmModalComponent>modal.content).onClose.subscribe(result => {
+      if (result === true) {
+        this.animalService.deleteAnimal(animal.id)
+          .subscribe(data => console.log(data), error => console.log(error));
+
+        this.router.navigate(['/animals']).then(() => {
+          window.location.reload();
+        });
       }
     });
   }
 
   backToTheRefuge(animal: Animal) {
-    this.modalRef = this.modalService.show(ConfirmModalComponent, {
-      initialState: {
-        title: 'Confirmation retour',
-        prompt: 'Confirmez-vous le retour de cet animal au refuge?',
-        callback: (result) => {
-          if (result == 'oui') {
-            animal.hostFamily = null;
-            this.animalService.updateAnimal(animal)
-              .subscribe(data => console.log(data), error => console.log(error));
+    const modal = this.modalService.show(ConfirmModalComponent);
+    (<ConfirmModalComponent>modal.content).showConfirmationModal(
+      'Confirmation retour',
+      `Confirmez-vous le retour de l'animal : ${animal.name} au refuge?`,
+      null
+    );
 
-            this.router.navigate(['/animals']).then(() => {
-              window.location.reload();
-            });
-          }
-        }
+    (<ConfirmModalComponent>modal.content).onClose.subscribe(result => {
+      if (result === true) {
+        animal.hostFamily = null;
+        this.animalService.updateAnimal(animal)
+          .subscribe(data => console.log(data), error => console.log(error));
+
+        this.router.navigate(['/animals']).then(() => {
+          window.location.reload();
+        });
       }
     });
+
   }
 
   confirmAdoption(id: string) {
@@ -106,7 +109,6 @@ export class AnimalDetailsComponent implements OnInit {
     return this.router.navigate(['/adopt/' + id]).then(() => {
       window.location.reload();
     });
-
   }
 
 }

@@ -19,7 +19,7 @@ import { AddOrUpdateAnimalComponent } from './components/add-or-update-animal/ad
 import { AddOrUpdateCareComponent } from './components/add-or-update-care/add-or-update-care.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -43,6 +43,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AppRoutingModule,
     ReactiveFormsModule,
     UiSwitchModule,
+    NgxPaginationModule,
     ModalModule.forRoot(),
     
     

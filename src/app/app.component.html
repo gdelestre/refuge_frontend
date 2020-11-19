@@ -3,20 +3,30 @@
   <div class="container-fluid">
     <h2 class="text-center"><i>Site de gestion du refuge de : </i></h2>
     
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark curv-perso">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarToggler">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-              <a class="nav-link px-4" routerLink="/animals">Nos animaux</a>
+              <a class="nav-link dropdown-toggle px-4" routerLink="/animals" id="animalsBySpecies" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Nos animaux</a>
+              <div class="dropdown-menu" aria-labelledby="animalsBySpecies">
+                <a class="dropdown-item" routerLink="/animals/Chien">Nos chiens</a>
+                <a class="dropdown-item" routerLink="/animals/Chat">Nos chats</a>
+                <a class="dropdown-item" routerLink="/animals/NAC_Rongeur">Nos rongeurs</a>
+                <a class="dropdown-item" routerLink="/animals/NAC_Reptile">Nos reptiles</a>
+                <a class="dropdown-item" routerLink="/animals/Autre">Autre Animaux</a>
+              </div>
             </li>
             <li class="nav-item">
               <a class="nav-link px-4" routerLink="/cares">Nos soins à prévoir</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link px-4" routerLink="/hosts">Nos acceuillants</a>
+              <a class="nav-link px-4" routerLink="/free/hosts/">Nos accueillants disponibles</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link px-4" routerLink="/full/hosts">Nos accueillants indisponibles</a>
             </li>
             <li class="nav-item">
               <a class="nav-link px-4" routerLink="/adoptives">Nos adoptions</a>
