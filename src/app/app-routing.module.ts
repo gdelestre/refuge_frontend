@@ -11,7 +11,8 @@ import { AddHostFamilyComponent } from './components/add-host-family/add-host-fa
 import { UpdateFamilyComponent } from './components/update-family/update-family.component';
 import { AddOrUpdateAnimalComponent } from './components/add-or-update-animal/add-or-update-animal.component';
 import { AddOrUpdateCareComponent } from './components/add-or-update-care/add-or-update-care.component';
-
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
 {path: 'cares/:idCare/update/:idAnimal', component: AddOrUpdateCareComponent},
@@ -32,8 +33,10 @@ const routes: Routes = [
 {path: 'free/hosts', component: HostFamilyComponent },
 {path: 'cares', component: VeterinaryComponent },
 {path: 'animals', component: AnimalComponent },
-{path: '', redirectTo: '/animals', pathMatch: 'full'},
-{path: '**', redirectTo: '/animals', pathMatch: 'full'}];
+{path: 'register', component: RegisterComponent},
+{path: 'login', component: LoginComponent },
+{path: '', redirectTo: '/login', pathMatch: 'full'},
+{path: '**', redirectTo: '/login', pathMatch: 'full'}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

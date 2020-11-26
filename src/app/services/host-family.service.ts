@@ -4,42 +4,42 @@ import { HostFamily } from '../classes/host-family';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+const baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/host';
+//const baseUrl = 'http://localhost:8080/api/host';
+
 @Injectable({
   providedIn: 'root'
 })
 export class HostFamilyService {
 
-  private baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/host';
-  //private baseUrl = 'http://localhost:8080/api/host';
-
   constructor(private httpClient: HttpClient) { }
 
   getHostFamilyByPhoneNumber(phoneNumber: string): Observable<HostFamily>{
-    const url = `${this.baseUrl}/phone/${phoneNumber}`;
+    const url = `${baseUrl}/phone/${phoneNumber}`;
     return this.httpClient.get<HostFamily>(url);
   }
 
   getAllHostFreeFamilies(): Observable<HostFamily[]> {
-    const url = `${this.baseUrl}/free`;
+    const url = `${baseUrl}/free`;
     return this.httpClient.get<HostFamily[]>(url);
   }
 
   getAllHostFullFamilies(): Observable<HostFamily[]> {
-    const url = `${this.baseUrl}/full`;
+    const url = `${baseUrl}/full`;
     return this.httpClient.get<HostFamily[]>(url);
   }
 
   getFamilyById(id: string): Observable<HostFamily> {
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${baseUrl}/${id}`;
     return this.httpClient.get<HostFamily>(url);
   }
 
   createHostFamily(hostFamily: object): Observable<object> {
-    return this.httpClient.post(this.baseUrl, hostFamily).pipe(catchError(this.handleError));
+    return this.httpClient.post(baseUrl, hostFamily).pipe(catchError(this.handleError));
   }
 
   updateHostFamily(hostFamily: object): Observable<object> {
-    return this.httpClient.put(this.baseUrl, hostFamily).pipe(catchError(this.handleError));
+    return this.httpClient.put(baseUrl, hostFamily).pipe(catchError(this.handleError));
   }
 
   handleError(error: HttpErrorResponse) {
@@ -54,7 +54,7 @@ export class HostFamilyService {
   }
 
   deleteFamily(id:string){
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${baseUrl}/${id}`;
     return this.httpClient.delete(url).pipe(catchError(this.handleErrorDelete));
   }
 

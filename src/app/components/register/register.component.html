@@ -1,0 +1,153 @@
+<div class="container">
+
+
+  <div class="form-group centered pt-4">
+    <div class="col-md-8 border rounded border-dark">
+      <h3 class=" centered curv-perso py-4"><u>Autorisations pour les différents rôles :</u></h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Rôle</th>
+            <th scope="col">Ajout</th>
+            <th scope="col">Modification</th>
+            <th scope="col">Suppression</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Admin</th>
+            <td style="color: green;">OUI</td>
+            <td style="color: green;">OUI</td>
+            <td style="color: green;">OUI</td>
+          </tr>
+          <tr>
+            <th scope="row">Modérateur</th>
+            <td class="text-centered" style="color: green;">OUI</td>
+            <td style="color: green;">OUI</td>
+            <td style="color: red;">NON</td>
+          </tr>
+          <tr>
+            <th scope="row">Utilisateur</th>
+            <td style="color: red;">NON</td>
+            <td style="color: red;">NON</td>
+            <td style="color: red;">NON</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+  <!-- Fait référence au nom définie dans le fichier.ts-->
+  <form [formGroup]="userFormGroup" (ngSubmit)="onSubmit()" #form="ngForm" autocomplete="off">
+    <div class="form-area">
+      <div class="form-group centered pt-4">
+        <div class="col-md-8 border rounded border-dark">
+          <h3 class=" centered curv-perso py-4"><u>Nouvel utilisateur :</u></h3>
+          <div class="row">
+            <div class="col">
+              <label>Identifiant</label>
+            </div>
+            <div class="col">
+              <label>Rôle</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input type="text" class="form-control" formControlName="username" minlength="3" maxlength="20">
+            </div>
+            <div class="col">
+              <div class="form-check form-check-inline pt-1">
+                <input class="form-check-input" type="radio" formControlName="role" id="user" value="user">
+                <label class="form-check-label" for="user">Utilisateur</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" formControlName="role" id="mod" value="mod">
+                <label class="form-check-label" for="mod">Modérateur</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" formControlName="role" id="admin" value="admin">
+                <label class="form-check-label" for="admin">Admin</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div *ngIf="f.username.touched && f.username.invalid" class=" col-md-6 alert alert-danger">
+                <div *ngIf="f.username.errors.required">Identifiant obligatoire</div>
+                <div *ngIf="f.username.errors.minlength">
+                  Taille minimum : 3 caractères
+                </div>
+                <div *ngIf="f.username.errors.maxlength">
+                  Taille maximum : 20 caractères
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row pt-4">
+            <div class="col">
+              <label>Mot de passe</label>
+            </div>
+            <div class="col">
+              <label>Confirmation mot de passe</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input type="password" class="form-control" formControlName="password" id="password" minlength="6">
+            </div>
+            <div class="col">
+              <input type="password" class="form-control" formControlName="confirm_pass" id="confirm_pass" minlength="6">
+            </div>
+          </div>
+          <div class="row pb-4">
+            <div class="col">
+              <div *ngIf="f.password.touched && f.password.invalid" class="alert alert-danger">
+                <div *ngIf="f.password.errors.required">Mot de passe obligatoire.</div>
+                <div *ngIf="f.password.errors.minlength">
+                  Taille minimum : 6 caractères
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div *ngIf="f.confirm_pass.touched && f.confirm_pass.invalid" class="alert alert-danger">
+                <div *ngIf="f.confirm_pass.errors.required">Confirmation obligatoire.</div>
+                <div *ngIf="f.confirm_pass.errors.confirmedValidator">Les deux mots de passe doivent être identique.
+                </div>
+                <div *ngIf="f.confirm_pass.errors.minlength">
+                  Taille minimum : 6 caractères
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- submit button -->
+          <div class="centered row py-4">
+            <button type="submit" class="btn btn-info" [disabled]="!userFormGroup.valid">Ajouter</button>
+          </div>
+
+          <div class="alert alert-warning" *ngIf="form.submitted && isSignUpFailed">
+            Echec de l'enregistrement<br />{{ errorMessage }}
+          </div>
+          <div class="alert alert-success" *ngIf="isSuccessful">
+            Utilisateur enregistré avec succès!
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+
+  </form>
+
+
+
+</div>

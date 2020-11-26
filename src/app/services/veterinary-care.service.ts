@@ -4,39 +4,39 @@ import { Observable, throwError } from 'rxjs';
 import { VeterinaryCare } from '../classes/veterinary-care';
 import { catchError } from 'rxjs/operators';
 
+const baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api';
+//const baseUrl = 'http://localhost:8080/api';
+
 @Injectable({
   providedIn: 'root'
 })
 export class VeterinaryCareService {
 
-  private baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api';
-  //private baseUrl = 'http://localhost:8080/api';
-
   constructor(private httpClient: HttpClient) { }
 
   getVeterinaryCaresByAnimals(id:string): Observable<VeterinaryCare[]> {
-    const url = `${this.baseUrl}/${id}/care`;
+    const url = `${baseUrl}/${id}/care`;
 
     return this.httpClient.get<VeterinaryCare[]>(url);
   }
 
   getVeterinaryCaresToDo(): Observable<VeterinaryCare[]>{
-    const url = `${this.baseUrl}/care`;
+    const url = `${baseUrl}/care`;
     return this.httpClient.get<VeterinaryCare[]>(url);
   }
 
   getVeterinaryCareById(id:string): Observable<VeterinaryCare> {
-    const url = `${this.baseUrl}/care/${id}`;
+    const url = `${baseUrl}/care/${id}`;
     return this.httpClient.get<VeterinaryCare>(url);
   }
 
   createVeterinaryCare(idAnimal: string, idVeterinary: string, veterinaryCare: object){
-    const url = `${this.baseUrl}/animal/${idAnimal}/veterinary/${idVeterinary}/care`;
+    const url = `${baseUrl}/animal/${idAnimal}/veterinary/${idVeterinary}/care`;
     return this.httpClient.post(url, veterinaryCare).pipe(catchError(this.handleError));
   }
 
   updateVeterinaryCare(idAnimal: string, idVeterinary: string, veterinaryCare: object): Observable<object> {
-    const url = `${this.baseUrl}/animal/${idAnimal}/veterinary/${idVeterinary}/care`;
+    const url = `${baseUrl}/animal/${idAnimal}/veterinary/${idVeterinary}/care`;
     return this.httpClient.put(url, veterinaryCare).pipe(catchError(this.handleError));
   } 
 
@@ -52,7 +52,7 @@ export class VeterinaryCareService {
   }
 
   deleteCare(id: string){
-    const url = `${this.baseUrl}/care/${id}`;
+    const url = `${baseUrl}/care/${id}`;
     return this.httpClient.delete<VeterinaryCare>(url);
   }
 

@@ -4,47 +4,46 @@ import { Animal } from '../classes/animal';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+const baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/animal';
+//const baseUrl = 'http://localhost:8080/api/animal';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnimalService {
 
-  private baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/animal';
-  //private baseUrl = 'http://localhost:8080/api/animal';
-
   constructor(private httpClient: HttpClient) { }
 
   getAllAnimals(): Observable<Animal[]> {
-    return this.httpClient.get<Animal[]>(this.baseUrl);
+    return this.httpClient.get<Animal[]>(baseUrl);
   }
 
   getAnimalsBySpecies(species:string): Observable<Animal[]>{
-    const url = `${this.baseUrl}/species/${species}`;
+    const url = `${baseUrl}/species/${species}`;
     return this.httpClient.get<Animal[]>(url);
   }
 
   getOneAnimal(id: string): Observable<Animal>{
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${baseUrl}/${id}`;
     return this.httpClient.get<Animal>(url);
   }
 
   getAnimalsInHostFamily(): Observable<Animal[]>{
-    const url = `${this.baseUrl}/host`;
+    const url = `${baseUrl}/host`;
     return this.httpClient.get<Animal[]>(url);
   }
 
   getAdoptedAnimals(): Observable<Animal[]>{
-    const url = `${this.baseUrl}/adoptive`;
+    const url = `${baseUrl}/adoptive`;
     return this.httpClient.get<Animal[]>(url);
   }
 
   createAnimal(animal: object): Observable<object> {
-    return this.httpClient.post(this.baseUrl, animal).pipe(catchError(this.handleError));
+    return this.httpClient.post(baseUrl, animal).pipe(catchError(this.handleError));
   }
 
   updateAnimal(animal: object): Observable<object> {
-    return this.httpClient.put(this.baseUrl, animal).pipe(catchError(this.handleError));
+    return this.httpClient.put(baseUrl, animal).pipe(catchError(this.handleError));
   } 
 
   handleError(error: HttpErrorResponse) {
@@ -59,7 +58,7 @@ export class AnimalService {
   }
 
   deleteAnimal(id: string){
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${baseUrl}/${id}`;
     return this.httpClient.delete<Animal>(url);
   }
 }

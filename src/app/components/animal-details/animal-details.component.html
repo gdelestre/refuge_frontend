@@ -25,24 +25,24 @@
         </table>
     </div>
     <div class="row pl-4">
-        <div class="pr-5 pl-2">
+        <div class="pr-3 pl-2" *ngIf="isAdmin || isMod">
             <button *ngIf="!myAnimal.adopted" (click)="confirmAdoption(myAnimal.id)"
                 class="btn btn btn-outline-success">
-                Ajouter un adoptant
+                Ajouter adoptant
             </button>
         </div>
-        <div class="px-5">
+        <div class="px-3" *ngIf="isAdmin || isMod">
             <button *ngIf="!myAnimal.hostFamily && !myAnimal.adopted" routerLink="/host/{{ myAnimal.id }}"
                 class="btn btn btn-outline-warning">
-                Ajouter un accueillant
+                Ajouter accueillant
             </button>
         </div>
-        <div class="px-5">
+        <div class="px-3" *ngIf="isAdmin || isMod">
             <button routerLink="/animals/{{ myAnimal.id }}/update" class="btn btn-outline-info">
                 Modifier
             </button>
         </div>
-        <div class="pl-5" *ngIf="!myAnimal.adopted">
+        <div class="pl-3" *ngIf="!myAnimal.adopted && isAdmin">
             <button class="btn btn-outline-danger" (click)="deleteAnimal(myAnimal)">
                 Supprimer
             </button>
@@ -78,7 +78,7 @@
                 </tr>
             </tbody>
         </table>
-        <div class="pb-2">
+        <div class="pb-2" *ngIf="isAdmin || isMod">
             <button routerLink="/adoptives/{{ myAnimal.adoption.adoptiveFamily.id }}/update"
                 class="btn btn-outline-info">
                 Modifier les coordonnées
@@ -109,7 +109,7 @@
                 </tr>
             </tbody>
         </table>
-        <div class="pb-2 row">
+        <div class="pb-2 row" *ngIf="isAdmin || isMod">
             <div class="col-md-3">
                 <button routerLink="/hosts/{{ myAnimal.hostFamily.id }}/update" class="btn btn-outline-info">
                     Modifier les coordonnées
@@ -144,7 +144,7 @@
 
     </div>
 
-    <div *ngIf="!myAnimal.adopted" class="container-fluid">
+    <div *ngIf="!myAnimal.adopted && (isAdmin || isMod)" class="container-fluid">
         <button routerLink="/care/{{ myAnimal.id }}/add" class="btn btn-outline-secondary float-left">
             Ajouter un soin
         </button>

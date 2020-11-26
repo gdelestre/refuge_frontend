@@ -1,16 +1,16 @@
 
 <div class="container-fluid">
   <div class="container-fluid">
-    <h2 class="text-center"><i>Site de gestion du refuge de : </i></h2>
+    <h2 class="text-center" *ngIf="isLoggedIn"><i>Site de gestion du refuge "Les Animaux virtuels"</i></h2>
     
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark curv-perso">
+    <nav  *ngIf="isLoggedIn" class="navbar navbar-expand-md navbar-dark bg-dark curv-perso">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarToggler">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-              <a class="nav-link dropdown-toggle px-4" routerLink="/animals" id="animalsBySpecies" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Nos animaux</a>
+              <a class="nav-link dropdown-toggle px-3" routerLink="/animals" id="animalsBySpecies" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Nos animaux</a>
               <div class="dropdown-menu" aria-labelledby="animalsBySpecies">
                 <a class="dropdown-item" routerLink="/animals/Chien">Nos chiens</a>
                 <a class="dropdown-item" routerLink="/animals/Chat">Nos chats</a>
@@ -20,16 +20,24 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link px-4" routerLink="/cares">Nos soins à prévoir</a>
+              <a class="nav-link px-3" routerLink="/cares">Soins prévus</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link px-4" routerLink="/free/hosts/">Nos accueillants disponibles</a>
+              <a class="nav-link px-3" routerLink="/free/hosts/">Accueillants disponibles</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link px-4" routerLink="/full/hosts">Nos accueillants indisponibles</a>
+              <a class="nav-link px-3" routerLink="/full/hosts">Accueillants indisponibles</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link px-4" routerLink="/adoptives">Nos adoptions</a>
+              <a class="nav-link px-3" routerLink="/adoptives">Adoptions en cours</a>
+            </li>
+            <li class="nav-item" *ngIf="isAdmin">
+              <a class="nav-link px-3" routerLink="/register">Ajouter Utilisateur</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+            <li class="nav-item">
+              <a href class="nav-link" (click)="logout()">Déconnexion</a>
             </li>
           </ul>
       </div>

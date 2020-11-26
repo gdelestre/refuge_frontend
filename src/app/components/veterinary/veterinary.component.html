@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="container-fluid pt-4">
+    <div class="container-fluid pt-4" *ngIf="isAdmin || isMod">
         <button routerLink="/veterinaries/add" class="btn btn-outline-secondary ">Ajouter un vétérinaire</button>
     </div>
 
@@ -10,16 +10,16 @@
                 Adresse: {{ tempVeterinary.streetNumber }} {{ tempVeterinary.streetName }}
                 {{ tempVeterinary.zipCode }} {{ tempVeterinary.city }}
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 Téléphone:
                 {{tempVeterinary.phoneNumber |slice:0:2 }}-{{tempVeterinary.phoneNumber |slice:2:4 }}-{{ tempVeterinary.phoneNumber |slice:4:6 }}-{{ tempVeterinary.phoneNumber |slice:6:8 }}-{{ tempVeterinary.phoneNumber |slice:8:10 }}
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2" *ngIf="isAdmin || isMod">
                 <button routerLink="/veterinaries/{{ tempVeterinary.id }}/update" class="btn btn-outline-info">
-                    Modifier les coordonnées
+                    Modifier
                 </button>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" *ngIf="isAdmin">
                 <button class="btn btn-outline-danger" (click)="deleteVeterinary(tempVeterinary)">
                     Supprimer
                 </button>
@@ -43,15 +43,15 @@
                     <td> {{ tempVetCare.examenDate | date: 'dd/MM/yyyy'}}</td>
                     <td> {{ tempVetCare.examenTime }}</td>
                     <td> {{ tempVetCare.animal.name }}</td>
-                    <td>
+                    <td *ngIf="isMod || isAdmin">
                         <button routerLink="/cares/{{ tempVetCare.id }}/update/{{ tempVetCare.animal.id }}"
                             class="btn btn-outline-info">
-                            Modifier le rdv
+                            Modifier
                         </button>
                     </td>
-                    <td>
+                    <td *ngIf="isAdmin">
                         <button class="btn btn-outline-danger" (click)="deleteCare(tempVetCare)">
-                            Annuler le rdv
+                            Annuler
                         </button>
                     </td>
                 </tr>

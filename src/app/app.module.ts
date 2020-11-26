@@ -20,6 +20,9 @@ import { AddOrUpdateCareComponent } from './components/add-or-update-care/add-or
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { authInterceptorProviders } from './helpers/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     UpdateFamilyComponent,
     AddOrUpdateAnimalComponent,
     AddOrUpdateCareComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     HttpClientModule,
@@ -48,7 +53,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     
     
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

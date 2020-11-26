@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimalService } from 'src/app/services/animal.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Animal } from 'src/app/classes/animal';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 
 @Component({
@@ -15,14 +16,23 @@ export class AnimalComponent implements OnInit {
   speciesFilter: boolean = false;
   page: number = 1;
 
-  constructor(private route: ActivatedRoute, private animalService: AnimalService) {
+  currentUser: any;
+  private roles: string[];
+  isUser = true;
+
+  constructor(private route: ActivatedRoute, private animalService: AnimalService,
+    private tokenStorageService: TokenStorageService, private router: Router) {
   }
 
   ngOnInit(): void {
+    this.currentUser = this.tokenStorageService.getUser();
+    this.roles = this.currentUser.roles;
+    if (this.roles.includes('ROLE_ADMIN') || this.roles.includes('ROLE_MODERATOR')) {
+      this.isUser = false;
+    }
+
     this.route.paramMap.subscribe(
       () => { this.listAnimals() });
-
-
   }
 
   listAnimals() {

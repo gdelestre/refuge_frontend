@@ -31,12 +31,12 @@
                                     {{tempAdoption.adoptiveFamily.phoneNumber |slice:0:2 }}-{{tempAdoption.adoptiveFamily.phoneNumber |slice:2:4 }}-{{ tempAdoption.adoptiveFamily.phoneNumber |slice:4:6 }}-{{ tempAdoption.adoptiveFamily.phoneNumber |slice:6:8 }}-{{ tempAdoption.adoptiveFamily.phoneNumber |slice:8:10 }}
                                 </span>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2" *ngIf="isAdmin">
                                 <button class="btn btn-outline-success" (click)="validateAdoption(tempAnimal)">
                                     Valider l'adoption
                                 </button>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2" *ngIf="isAdmin">
                                 <button class="btn btn-outline-danger" (click)="cancelAdoption(tempAnimal)">
                                     Annuler l'adoption
                                 </button>

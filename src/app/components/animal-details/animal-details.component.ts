@@ -7,6 +7,7 @@ import { VeterinaryCareService } from 'src/app/services/veterinary-care.service'
 import { VeterinaryCare } from 'src/app/classes/veterinary-care';
 import { formatDate } from '@angular/common';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-animal-details',
@@ -21,11 +22,27 @@ export class AnimalDetailsComponent implements OnInit {
   //Modal pour confirmation
   modalRef: BsModalRef;
 
+  currentUser: any;
+  private roles: string[];
+  isAdmin = false;
+  isMod = false;
+
   constructor(private route: ActivatedRoute, private router: Router, private animalService: AnimalService,
-    private veterinaryCareService: VeterinaryCareService, private modalService: BsModalService) {
+    private veterinaryCareService: VeterinaryCareService, private modalService: BsModalService,
+    private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
+
+    this.currentUser = this.tokenStorageService.getUser();
+    this.roles = this.currentUser.roles;
+    if (this.roles.includes('ROLE_ADMIN')) {
+      this.isAdmin = true;
+    }
+    if (this.roles.includes('ROLE_MODERATOR')) {
+      this.isMod = true;
+    }
+
     this.getAnimal();
     this.getVeterinaryCares();
   }
@@ -59,12 +76,26 @@ export class AnimalDetailsComponent implements OnInit {
 
     (<ConfirmModalComponent>modal.content).onClose.subscribe(result => {
       if (result === true) {
-        this.animalService.deleteAnimal(animal.id)
+        let canDelete = false;
+        const now = formatDate(new Date(), 'yyyy-MM-dd', 'en_US');
+        if (this.veterinaryCares.length > 0) {
+          if (formatDate(this.veterinaryCares[0].examenDate, 'yyyy-MM-dd', 'en_US') < now) {
+            canDelete = true;
+          }
+        } else {
+          canDelete = true;
+        }
+
+        if(canDelete){
+          this.animalService.deleteAnimal(animal.id)
           .subscribe(data => console.log(data), error => console.log(error));
 
         this.router.navigate(['/animals']).then(() => {
           window.location.reload();
         });
+        }else{
+          window.alert("Impossible de supprimer un animal avec des soins de prévus.\n Veuillez annuler le(s) soin(s) prévu(s) avant de supprimer cet animal.");
+        }
       }
     });
   }

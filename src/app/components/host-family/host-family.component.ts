@@ -6,6 +6,7 @@ import { AnimalService } from 'src/app/services/animal.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-host-family',
@@ -18,6 +19,8 @@ export class HostFamilyComponent implements OnInit {
 
   myAnimalsInHostFamily: Animal[] = [];
   hostFamily: HostFamily;
+  freeFamilies: boolean = this.router.url.startsWith('/free')
+  title: string = "Famille(s) pouvant accueillir d'autres animaux:";
 
   //Modal pour confirmation
   modalRef: BsModalRef;
@@ -25,13 +28,27 @@ export class HostFamilyComponent implements OnInit {
   //Pour pagination
   p: number = 1;
 
-  freeFamilies: boolean = this.router.url.startsWith('/free')
-  title: string = "Famille(s) pouvant accueillir d'autres animaux:";
+  //Données pour les autorisations
+  currentUser: any;
+  private roles: string[];
+  isAdmin = false;
+  isMod = false;
+
 
   constructor(private hostFamilyService: HostFamilyService, private animalService: AnimalService,
-    private modalService: BsModalService, private router: Router) { }
+    private modalService: BsModalService, private router: Router, private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
+
+    this.currentUser = this.tokenStorageService.getUser();
+    this.roles = this.currentUser.roles;
+    if (this.roles.includes('ROLE_ADMIN')) {
+      this.isAdmin = true;
+    }
+    if (this.roles.includes('ROLE_MODERATOR')) {
+      this.isMod = true;
+    }
+
     if (this.freeFamilies) {
       this.getAllFreeHostFamilies();
     } else {
@@ -67,11 +84,11 @@ export class HostFamilyComponent implements OnInit {
       this.hostFamily.free = true;
     }
     this.updateFamily();
-    if(this.freeFamilies){
+    if (this.freeFamilies) {
       this.router.navigate(['/full/hosts']).then(() => {
         window.location.reload();
       });
-    }else{
+    } else {
       this.router.navigate(['/free/hosts']).then(() => {
         window.location.reload();
       });

@@ -6,6 +6,7 @@ import { AdoptAnimalService } from 'src/app/services/adopt-animal.service';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-adoptive-family',
@@ -21,11 +22,22 @@ export class AdoptiveFamilyComponent implements OnInit {
   //Pour pagination
   p: number = 1;
 
+  //Données pour les autorisations
+  currentUser: any;
+  private roles: string[];
+  isAdmin = false;
+
   constructor(private animalService: AnimalService, private adoptAnimalService: AdoptAnimalService,
-    private router: Router, private modalService: BsModalService) {
+    private router: Router, private modalService: BsModalService, private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
+    this.currentUser = this.tokenStorageService.getUser();
+    this.roles = this.currentUser.roles;
+    if (this.roles.includes('ROLE_ADMIN')) {
+      this.isAdmin = true;
+    }
+
     this.getAllAdoptionss();
     this.getAllAnimalsInAdoptivesFamilies();
   }

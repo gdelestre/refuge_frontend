@@ -4,35 +4,36 @@ import { AdoptiveFamily } from '../classes/adoptive-family';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+const baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/adoptive';
+//const baseUrl = 'http://localhost:8080/api/adoptive';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AdoptiveFamilyService {
-  private baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/adoptive';
-  //private baseUrl = 'http://localhost:8080/api/adoptive';
 
   constructor(private httpClient: HttpClient) { }
 
   getAllAdoptivesFamilies(): Observable<AdoptiveFamily[]> {
-    return this.httpClient.get<AdoptiveFamily[]>(this.baseUrl);
+    return this.httpClient.get<AdoptiveFamily[]>(baseUrl);
   }
 
   getOneAdoptiveFamily(id: string): Observable<AdoptiveFamily>{
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${baseUrl}/${id}`;
     return this.httpClient.get<AdoptiveFamily>(url);
   }
 
   getAdoptiveFamilyByPhoneNumber(phoneNumber: string): Observable<AdoptiveFamily>{
-    const url = `${this.baseUrl}/phone/${phoneNumber}`;
+    const url = `${baseUrl}/phone/${phoneNumber}`;
     return this.httpClient.get<AdoptiveFamily>(url);
   }
 
   createAdoptiveFamily(adoptiveFamily: object): Observable<object> {
-    return this.httpClient.post(this.baseUrl, adoptiveFamily).pipe(catchError(this.handleError));
+    return this.httpClient.post(baseUrl, adoptiveFamily).pipe(catchError(this.handleError));
   }
 
   updateAdoptiveFamily(adoptiveFamily: object): Observable<object> {
-    return this.httpClient.put(this.baseUrl, adoptiveFamily).pipe(catchError(this.handleError));
+    return this.httpClient.put(baseUrl, adoptiveFamily).pipe(catchError(this.handleError));
   }
 
   handleError(error: HttpErrorResponse) {
