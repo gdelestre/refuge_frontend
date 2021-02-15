@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AdoptAnimal } from '../classes/adopt-animal';
 
-const baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/adoption';
-//const baseUrl = 'http://localhost:8080/api/adoption';
+//const baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/adoption';
+const baseUrl = 'http://192.168.1.20:8080/refuge/api/adoption';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +17,14 @@ export class AdoptAnimalService {
     return this.httpClient.get<AdoptAnimal[]>(baseUrl);
   }
 
-  createAdoption(adoption: object){
+  createAdoption(adoption: object) {
     return this.httpClient.post(baseUrl, adoption);
   }
 
-  deleteAdoptionByAnimalId(id: string): Observable<AdoptAnimal>{
+  deleteAdoptionByAnimalId(id: string): Observable<AdoptAnimal> {
     const url = `${baseUrl}/${id}`;
     return this.httpClient.delete<AdoptAnimal>(url);
   }
 
- 
+
 }

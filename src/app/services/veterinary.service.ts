@@ -4,8 +4,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Veterinary } from '../classes/veterinary';
 
-const baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/veterinary';
-//const baseUrl = 'http://localhost:8080/api/veterinary';
+//const baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/veterinary';
+const baseUrl = 'http://192.168.1.20:8080/refuge/api/veterinary';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +14,11 @@ export class VeterinaryService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllVeterinaries(): Observable<Veterinary[]>{
+  getAllVeterinaries(): Observable<Veterinary[]> {
     return this.httpClient.get<Veterinary[]>(baseUrl);
   }
 
-  getOneVeterinary(id: string): Observable<Veterinary>{
+  getOneVeterinary(id: string): Observable<Veterinary> {
     const url = `${baseUrl}/${id}`;
     return this.httpClient.get<Veterinary>(url);
   }
@@ -35,14 +35,14 @@ export class VeterinaryService {
     let errorMessage = "";
     if (error.status == 403) {
       errorMessage = `Ajout impossible! Ce numéro de téléphone est déjà utilisé.`;
-    }else{
+    } else {
       errorMessage = `Erreur. L'ajout n'a pas pu être effectué.`;
     }
     window.alert(errorMessage);
     return throwError(errorMessage);
   }
 
-  deleteVeterinary(id:string){
+  deleteVeterinary(id: string) {
     const url = `${baseUrl}/${id}`;
     return this.httpClient.delete(url).pipe(catchError(this.handleErrorDelete));
   }
@@ -51,7 +51,7 @@ export class VeterinaryService {
     let errorMessage = "";
     if (error.status == 403) {
       errorMessage = "Suppression impossible, ce vétérinaire a des soins à faire.\n Veuillez annuler les soins prévus pour pouvoir le supprimer.";
-    }else{
+    } else {
       errorMessage = `Erreur. La suppression n'a pas eu lieu.`;
     }
     window.alert(errorMessage);

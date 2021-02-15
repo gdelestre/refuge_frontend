@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse  } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Animal } from '../classes/animal';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-const baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/animal';
-//const baseUrl = 'http://localhost:8080/api/animal';
+//const baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/animal';
+const baseUrl = 'http://192.168.1.20:8080/refuge/api/animal';
 
 @Injectable({
   providedIn: 'root'
@@ -18,22 +18,22 @@ export class AnimalService {
     return this.httpClient.get<Animal[]>(baseUrl);
   }
 
-  getAnimalsBySpecies(species:string): Observable<Animal[]>{
+  getAnimalsBySpecies(species: string): Observable<Animal[]> {
     const url = `${baseUrl}/species/${species}`;
     return this.httpClient.get<Animal[]>(url);
   }
 
-  getOneAnimal(id: string): Observable<Animal>{
+  getOneAnimal(id: string): Observable<Animal> {
     const url = `${baseUrl}/${id}`;
     return this.httpClient.get<Animal>(url);
   }
 
-  getAnimalsInHostFamily(): Observable<Animal[]>{
+  getAnimalsInHostFamily(): Observable<Animal[]> {
     const url = `${baseUrl}/host`;
     return this.httpClient.get<Animal[]>(url);
   }
 
-  getAdoptedAnimals(): Observable<Animal[]>{
+  getAdoptedAnimals(): Observable<Animal[]> {
     const url = `${baseUrl}/adoptive`;
     return this.httpClient.get<Animal[]>(url);
   }
@@ -44,20 +44,20 @@ export class AnimalService {
 
   updateAnimal(animal: object): Observable<object> {
     return this.httpClient.put(baseUrl, animal).pipe(catchError(this.handleError));
-  } 
+  }
 
   handleError(error: HttpErrorResponse) {
     let errorMessage = "";
     if (error.status == 403) {
       errorMessage = `Ajout ou Modification impossible! Ce nom est déjà utilisé.`;
-    }else{
+    } else {
       errorMessage = `Erreur. L'ajout ou la modification de l'animal n'a pas pu être effectué(e).`;
     }
     window.alert(errorMessage);
     return throwError(errorMessage);
   }
 
-  deleteAnimal(id: string){
+  deleteAnimal(id: string) {
     const url = `${baseUrl}/${id}`;
     return this.httpClient.delete<Animal>(url);
   }

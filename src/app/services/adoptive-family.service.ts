@@ -4,8 +4,8 @@ import { AdoptiveFamily } from '../classes/adoptive-family';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-const baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/adoptive';
-//const baseUrl = 'http://localhost:8080/api/adoptive';
+//const baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/adoptive';
+const baseUrl = 'http://192.168.1.20:8080/refuge/api/adoptive';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +18,12 @@ export class AdoptiveFamilyService {
     return this.httpClient.get<AdoptiveFamily[]>(baseUrl);
   }
 
-  getOneAdoptiveFamily(id: string): Observable<AdoptiveFamily>{
+  getOneAdoptiveFamily(id: string): Observable<AdoptiveFamily> {
     const url = `${baseUrl}/${id}`;
     return this.httpClient.get<AdoptiveFamily>(url);
   }
 
-  getAdoptiveFamilyByPhoneNumber(phoneNumber: string): Observable<AdoptiveFamily>{
+  getAdoptiveFamilyByPhoneNumber(phoneNumber: string): Observable<AdoptiveFamily> {
     const url = `${baseUrl}/phone/${phoneNumber}`;
     return this.httpClient.get<AdoptiveFamily>(url);
   }
@@ -40,7 +40,7 @@ export class AdoptiveFamilyService {
     let errorMessage = "";
     if (error.status == 403) {
       errorMessage = `Ajout ou modification impossible! Ce numéro de téléphone est déjà utilisé.`;
-    }else{
+    } else {
       errorMessage = `Erreur. L'ajout n'a pas pu être effectué.`;
     }
     window.alert(errorMessage);
