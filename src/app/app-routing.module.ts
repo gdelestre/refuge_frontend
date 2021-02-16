@@ -37,8 +37,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'test', component: TestPageComponent },
-  { path: '', redirectTo: '/test', pathMatch: 'full' },
-  { path: '**', redirectTo: '/test', pathMatch: 'full' }];
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login', pathMatch: 'full' }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
