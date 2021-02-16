@@ -23,6 +23,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
+import { TestPageComponent } from './test-page/test-page.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
     AddOrUpdateCareComponent,
     ConfirmModalComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    TestPageComponent
   ],
   imports: [
     HttpClientModule,

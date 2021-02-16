@@ -13,30 +13,32 @@ import { AddOrUpdateAnimalComponent } from './components/add-or-update-animal/ad
 import { AddOrUpdateCareComponent } from './components/add-or-update-care/add-or-update-care.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { TestPageComponent } from './test-page/test-page.component';
 
 const routes: Routes = [
-{path: 'cares/:idCare/update/:idAnimal', component: AddOrUpdateCareComponent},
-{path: 'veterinaries/:idVeterinary/update', component: UpdateFamilyComponent},
-{path: 'adoptives/:idAdoptive/update', component: UpdateFamilyComponent},
-{path: 'hosts/:idHost/update', component: UpdateFamilyComponent},
-{path: 'animals/:idAnimal/update', component: AddOrUpdateAnimalComponent },
-{path: 'update/:idAnimal/host', component: AddHostFamilyComponent },
-{path: 'host/:idAnimal', component: AddHostFamilyComponent },
-{path: 'adopt/:idAnimal', component: AddAdoptiveFamilyComponent },
-{path: 'care/:idAnimal/add', component: AddOrUpdateCareComponent },
-{path: 'veterinaries/add', component: AddVeterinaryComponent },
-{path: 'animals/add', component: AddOrUpdateAnimalComponent },
-{path: 'animals/details/:id', component: AnimalDetailsComponent },
-{path: 'animals/:species', component: AnimalComponent },
-{path: 'adoptives', component: AdoptiveFamilyComponent },
-{path: 'full/hosts', component: HostFamilyComponent },
-{path: 'free/hosts', component: HostFamilyComponent },
-{path: 'cares', component: VeterinaryComponent },
-{path: 'animals', component: AnimalComponent },
-{path: 'register', component: RegisterComponent},
-{path: 'login', component: LoginComponent },
-{path: '', redirectTo: '/login', pathMatch: 'full'},
-{path: '**', redirectTo: '/login', pathMatch: 'full'}];
+  { path: 'cares/:idCare/update/:idAnimal', component: AddOrUpdateCareComponent },
+  { path: 'veterinaries/:idVeterinary/update', component: UpdateFamilyComponent },
+  { path: 'adoptives/:idAdoptive/update', component: UpdateFamilyComponent },
+  { path: 'hosts/:idHost/update', component: UpdateFamilyComponent },
+  { path: 'animals/:idAnimal/update', component: AddOrUpdateAnimalComponent },
+  { path: 'update/:idAnimal/host', component: AddHostFamilyComponent },
+  { path: 'host/:idAnimal', component: AddHostFamilyComponent },
+  { path: 'adopt/:idAnimal', component: AddAdoptiveFamilyComponent },
+  { path: 'care/:idAnimal/add', component: AddOrUpdateCareComponent },
+  { path: 'veterinaries/add', component: AddVeterinaryComponent },
+  { path: 'animals/add', component: AddOrUpdateAnimalComponent },
+  { path: 'animals/details/:id', component: AnimalDetailsComponent },
+  { path: 'animals/:species', component: AnimalComponent },
+  { path: 'adoptives', component: AdoptiveFamilyComponent },
+  { path: 'full/hosts', component: HostFamilyComponent },
+  { path: 'free/hosts', component: HostFamilyComponent },
+  { path: 'cares', component: VeterinaryComponent },
+  { path: 'animals', component: AnimalComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'test', component: TestPageComponent },
+  { path: '', redirectTo: '/test', pathMatch: 'full' },
+  { path: '**', redirectTo: '/test', pathMatch: 'full' }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
