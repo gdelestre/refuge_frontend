@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AdoptAnimal } from '../classes/adopt-animal';
 
 //const baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/adoption';
-const baseUrl = 'http://192.168.1.20:8080/refuge/api/adoption';
+const baseUrl = 'https://192.168.1.20:8443/refuge/api/adoption';
 
 @Injectable({
   providedIn: 'root'

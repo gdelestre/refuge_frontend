@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { Veterinary } from '../classes/veterinary';
 
 //const baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/veterinary';
-const baseUrl = 'http://192.168.1.20:8080/refuge/api/veterinary';
+const baseUrl = 'https://192.168.1.20:8443/refuge/api/veterinary';
 
 @Injectable({
   providedIn: 'root'

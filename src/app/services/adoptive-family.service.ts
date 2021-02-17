@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 //const baseUrl = 'http://refuge-env.eba-kpfvmekf.eu-west-3.elasticbeanstalk.com/api/adoptive';
-const baseUrl = 'http://192.168.1.20:8080/refuge/api/adoptive';
+const baseUrl = 'https://192.168.1.20:8443/refuge/api/adoptive';
 
 @Injectable({
   providedIn: 'root'
