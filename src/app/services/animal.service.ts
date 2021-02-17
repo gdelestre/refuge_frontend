@@ -10,7 +10,7 @@ const baseUrl = 'https://192.168.1.20:8443/refuge/api/animal';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'https://192.168.1.20:8443',
+    'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
     'mon-entete-personnalise': 'maValeur'
   })
